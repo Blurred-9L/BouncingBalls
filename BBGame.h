@@ -28,6 +28,20 @@ public:
     static const float DEFAULT_BALL_SPEED;
     /// The minimum ball speed.
     static const float MIN_BALL_SPEED;
+    /// The constant for the ball's radius.
+    static const float BALL_RADIUS;
+    /// The constant for the bar's width.
+    static const float BAR_WIDTH;
+    /// The constant for the bar's height.
+    static const float BAR_HEIGHT;
+    /// The ball's initial x coordinate.
+    static const float BALL_START_X;
+    /// The ball's initial y coordinate.
+    static const float BALL_START_Y;
+    /// The bar's initial x coordinate.
+    static const float BAR_START_X;
+    /// The bar's initial y coordinate.
+    static const float BAR_START_Y;
 
     /// BBGame default constructor.
     BBGame();

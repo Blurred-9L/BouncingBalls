@@ -11,6 +11,22 @@ private:
     float height_;
     
 public:
+
+    /**
+     *  @enum   BarPixelRange
+     *
+     *  @brief  Ranges used to check towards which direction the
+     *          ball should bounce.
+     */
+    enum BarPixelRange {
+        RANGE_LEFT_ACUTE = 5,
+        RANGE_LEFT_STRAIGHT = 15,
+        RANGE_LEFT_UPWARD = 50,
+        RANGE_RIGHT_UPWARD = 85,
+        RANGE_RIGHT_STRAIGHT = 90,
+        RANGE_RIGHT_ACUTE = 100
+    };
+
     /// Bar constructor.
     Bar();
     /// Bar destructor.

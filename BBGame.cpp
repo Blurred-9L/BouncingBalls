@@ -178,13 +178,13 @@ void BBGame::onBarBallCollision()
     
     if ((ballX >= barX) && (ballX < barX + Bar::RANGE_LEFT_ACUTE)) {
         ball_->setXSpeed(-DEFAULT_BALL_SPEED * 1.5);
-    } else if ((ballX >= barX + 5) && (ballX < barX + Bar::RANGE_LEFT_STRAIGHT)) {
+    } else if ((ballX >= barX + Bar::RANGE_LEFT_ACUTE) && (ballX < barX + Bar::RANGE_LEFT_STRAIGHT)) {
         ball_->setXSpeed(-DEFAULT_BALL_SPEED);
-    } else if ((ballX >= barX + 15) && (ballX < barX + Bar::RANGE_LEFT_UPWARD)) {
+    } else if ((ballX >= barX + Bar::RANGE_LEFT_STRAIGHT) && (ballX < barX + Bar::RANGE_LEFT_UPWARD)) {
         ball_->setXSpeed(-DEFAULT_BALL_SPEED * 0.5);
-    } else if ((ballX >= barX + 50) && (ballX < barX + Bar::RANGE_RIGHT_UPWARD)) {
+    } else if ((ballX >= barX + Bar::RANGE_LEFT_UPWARD) && (ballX < barX + Bar::RANGE_RIGHT_UPWARD)) {
         ball_->setXSpeed(DEFAULT_BALL_SPEED * 0.5);
-    } else if ((ballX >= barX + 85) && (ballX < barX + Bar::RANGE_RIGHT_STRAIGHT)) {
+    } else if ((ballX >= barX + Bar::RANGE_RIGHT_UPWARD) && (ballX < barX + Bar::RANGE_RIGHT_STRAIGHT)) {
         ball_->setXSpeed(DEFAULT_BALL_SPEED);
     } else {
         ball_->setXSpeed(DEFAULT_BALL_SPEED * 1.5);

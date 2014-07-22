@@ -39,3 +39,21 @@ even stop updating before it is finished.
 <strong>Extra stuff that might not get done:</strong>
 - Add powerups.
 - Add floating enemies.
+
+### How to compile
+
+The project uses Qt 4.8 to handle the GUI, keyboard input and drawing of objects. If you're
+using Linux you should install qt4-devel or an equivalent package. You might also want to
+install qmake if you want to mess around with the *.pro file. You also need a C++ compiler
+(I'm assuming gcc, but clang probably works as well). If you're using Windows, you need to
+download the compiled libraries from Qt or download the source code and compile it yourself.
+However, you'll also need the make utility, so you might want to use Cygwin to compile it
+and then run it from a Windows Terminal (Not sure about this thought)
+
+Anyway, to build the project just open a terminal and move to the projects directory. You
+can then type:
+
+    make
+
+and it should generate the required object files and create an executable file which you can
+run from the terminal as well.

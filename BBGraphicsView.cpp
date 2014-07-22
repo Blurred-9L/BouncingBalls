@@ -20,12 +20,14 @@ void BBGraphicsView::keyPressEvent(QKeyEvent * event)
 {
     switch (event->key()) {
     case Qt::Key_A:
+    case Qt::Key_Left:
         emit leftMoveEvent();
         break;
     case Qt::Key_D:
+    case Qt::Key_Right:
         emit rightMoveEvent();
         break;
-    case Qt::Key_X:
+    case Qt::Key_Space:
         emit acceptEvent();
         break;
     default:
@@ -38,10 +40,12 @@ void BBGraphicsView::keyPressEvent(QKeyEvent * event)
 void BBGraphicsView::keyReleaseEvent(QKeyEvent * event)
 {
     switch (event->key()) {
-    case Qt::Key_A:
+    case Qt::Key_A: 
+    case Qt::Key_Left:
         emit leftMoveStopEvent();
         break;
-    case Qt::Key_D:
+    case Qt::Key_D: 
+    case Qt::Key_Right:
         emit rightMoveStopEvent();
         break;
     default:

@@ -34,6 +34,7 @@ void BBWorker::execute()
             std::cout << "Collision!" << std::endl;
             game.onBarBallCollision();
         } else {
+            /// Check collision with bricks here.
         }
         emit updateScene();
         sleep(16);

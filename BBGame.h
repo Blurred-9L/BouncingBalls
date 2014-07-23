@@ -16,6 +16,8 @@ private:
     Bar * bar_;
     /// Flag indicating if the game has started.
     bool active_;
+    /// Flag indicating if the level needs to be redrawn.
+    bool drawLevel_;
 
 public:
     /// The default number of rows.
@@ -61,8 +63,12 @@ public:
     Bar & bar();
     /// Checks if the game is active.
     bool isActive() const;
+    /// Checks if level should be drawn.
+    bool shouldDrawLevel() const;
     /// Sets the game active flag.
     void setActive(bool active);
+    /// Sets the draw level flag.
+    void setDrawLevel(bool draw);
     /// Performs action when a brick is hit.
     void onBrickHit(Brick & brick);
     /// Performs action when a brick is broken.

@@ -2,15 +2,18 @@
 #define BB_WIDGET_H
 
 #include <QWidget>
+#include <QList>
 
 class QGraphicsScene;
 class QGraphicsView;
 class QGraphicsItem;
+class QPixmap;
 
 class QCloseEvent;
 
 class BBController;
 class GameObject;
+class Brick;
 
 /**
  *  @class  BBWidget
@@ -27,6 +30,10 @@ private:
     QGraphicsItem * ballItem;
     /// The bar image object.
     QGraphicsItem * barItem;
+    /// The bricks image objects.
+    QList<QGraphicsItem *> brickItems;
+    /// The bricks pixmaps.
+    QList<QPixmap *> brickPixmaps;
     /// The widget's controller.
     BBController & controller;
 
@@ -44,6 +51,12 @@ public slots:
     void drawBall(const GameObject & ball);
     /// Draws the bar on the scene.
     void drawBar(const GameObject & bar);
+    /// Draws or stops drawing a brick on the screen.
+    void drawBrick(const Brick & brick);
+    /// Removes the brick on the given index.
+    void removeBrick(unsigned index);
+    /// Resets the number of bricks on the screen.
+    void resetBricks();
 };
 
 #endif /// NOT BB_WIDGET_H

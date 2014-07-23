@@ -16,12 +16,12 @@ const float BBGame::BALL_RADIUS = 6.0;
 const float BBGame::BAR_WIDTH = 100.0;
 const float BBGame::BAR_HEIGHT = 20.0;
 const float BBGame::BALL_START_X = 234.0;
-const float BBGame::BALL_START_Y = 588.0;
+const float BBGame::BALL_START_Y = 568.0;
 const float BBGame::BAR_START_X = 190.0;
-const float BBGame::BAR_START_Y = 600.0;
+const float BBGame::BAR_START_Y = 580.0;
 
 BBGame::BBGame() :
-    brickArea_(0), ball_(0), bar_(0), active_(false)
+    brickArea_(0), ball_(0), bar_(0), active_(false), drawLevel_(false)
 {
     /// Set ball starting position and radius.
     ball_ = new Ball();
@@ -86,9 +86,19 @@ bool BBGame::isActive() const
     return active_;
 }
 
+bool BBGame::shouldDrawLevel() const
+{
+    return drawLevel_;
+}
+
 void BBGame::setActive(bool active)
 {
     active_ = active;
+}
+
+void BBGame::setDrawLevel(bool draw)
+{
+    drawLevel_ = draw;
 }
 
 void BBGame::onBrickHit(Brick & brick)
@@ -176,17 +186,17 @@ void BBGame::onBarBallCollision()
     float ballX = ball_->x();
     float barX = bar_->x();
     
-    if ((ballX >= barX) && (ballX < barX + Bar::RANGE_LEFT_ACUTE)) {
+    if ((ballX >= barX) && (ballX <= barX + Bar::RANGE_LEFT_ACUTE)) {
         ball_->setXSpeed(-DEFAULT_BALL_SPEED * 1.5);
-    } else if ((ballX >= barX + Bar::RANGE_LEFT_ACUTE) && (ballX < barX + Bar::RANGE_LEFT_STRAIGHT)) {
+    } else if ((ballX > barX + Bar::RANGE_LEFT_ACUTE) && (ballX <= barX + Bar::RANGE_LEFT_STRAIGHT)) {
         ball_->setXSpeed(-DEFAULT_BALL_SPEED);
-    } else if ((ballX >= barX + Bar::RANGE_LEFT_STRAIGHT) && (ballX < barX + Bar::RANGE_LEFT_UPWARD)) {
+    } else if ((ballX > barX + Bar::RANGE_LEFT_STRAIGHT) && (ballX <= barX + Bar::RANGE_LEFT_UPWARD)) {
         ball_->setXSpeed(-DEFAULT_BALL_SPEED * 0.5);
-    } else if ((ballX >= barX + Bar::RANGE_LEFT_UPWARD) && (ballX < barX + Bar::RANGE_RIGHT_UPWARD)) {
+    } else if ((ballX > barX + Bar::RANGE_LEFT_UPWARD) && (ballX <= barX + Bar::RANGE_RIGHT_UPWARD)) {
         ball_->setXSpeed(DEFAULT_BALL_SPEED * 0.5);
-    } else if ((ballX >= barX + Bar::RANGE_RIGHT_UPWARD) && (ballX < barX + Bar::RANGE_RIGHT_STRAIGHT)) {
+    } else if ((ballX > barX + Bar::RANGE_RIGHT_UPWARD) && (ballX <= barX + Bar::RANGE_RIGHT_STRAIGHT)) {
         ball_->setXSpeed(DEFAULT_BALL_SPEED);
-    } else {
+    } else if ((ballX > barX + Bar::RANGE_RIGHT_STRAIGHT) && (ballX <= barX + Bar::RANGE_RIGHT_UPWARD)){
         ball_->setXSpeed(DEFAULT_BALL_SPEED * 1.5);
     }
     ball_->setYSpeed(-ball_->ySpeed());

@@ -94,13 +94,14 @@ bool BrickArea::loadLevel(const char * levelName)
         getline(levelFile, line);
         while (!levelFile.eof() && parseOk) {
             parseOk = parseToBrick(line, bricks_[index], nRows_, nColumns_);
-            if (bricks_[index].color() != Brick::BRICK_COLOR_GOLDEN) {
+            if (bricks_[index].isBreakable()) {
                 breakableBricks_++;
                 remainingBricks_++;
             }
             totalBricks_++;
             line = "";
             getline(levelFile, line);
+            index++;
         }
         levelLoaded = (parseOk && levelFile.eof());
         levelFile.close();

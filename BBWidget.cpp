@@ -2,6 +2,7 @@
 #include "BBController.h"
 #include "ThreadWorker.h"
 #include "GameObject.h"
+#include "Brick.h"
 #include "BBGraphicsView.h"
 
 #include <QGraphicsScene>
@@ -36,6 +37,10 @@ BBWidget::BBWidget(BBController & controller, QWidget * parent) :
             this, SLOT(drawBall(const GameObject &)));
     connect(&controller, SIGNAL(drawBar(const GameObject &)),
             this, SLOT(drawBar(const GameObject &)));
+    connect(&controller, SIGNAL(drawBrick(const Brick &)),
+            this, SLOT(drawBrick(const Brick &)));
+    connect(&controller, SIGNAL(resetBricks()),
+            this, SLOT(resetBricks()));
     connect(bouncingView, SIGNAL(leftMoveEvent()),
             &controller, SLOT(handleLeftMovement()));
     connect(bouncingView, SIGNAL(rightMoveEvent()),
@@ -48,10 +53,17 @@ BBWidget::BBWidget(BBController & controller, QWidget * parent) :
             &controller, SLOT(handleRightStop()));
             
     bouncingView->setFocus();
+    
+    for (int i = 0; i < NUM_COLORS; i++) {
+        brickPixmaps.append(new QPixmap(BBController::BRICK_IMGS[i]));
+    }
 }
 
 BBWidget::~BBWidget()
 {
+    for (int i = 0; i < NUM_COLORS; i++) {
+        delete brickPixmaps[i];
+    }
 }
 
 void BBWidget::closeEvent(QCloseEvent * event)
@@ -76,4 +88,39 @@ void BBWidget::drawBar(const GameObject & bar)
         barItem = bouncingScene->addPixmap(QPixmap(BBController::BAR_IMG));
     }
     barItem->setPos(bar.x(), bar.y());
+}
+
+void BBWidget::drawBrick(const Brick & brick)
+{
+    unsigned row = brick.row(), column = brick.column();
+    QGraphicsItem * brickItem;
+    
+    brickItem = bouncingScene->addPixmap(*brickPixmaps[brick.color()]);
+    brickItem->setPos(column * Brick::DEFAULT_WIDTH, row * Brick::DEFAULT_HEIGHT);
+    brickItems.append(brickItem);
+}
+
+void BBWidget::removeBrick(unsigned index)
+{
+    if (index < (unsigned)brickItems.size()) {
+        if (brickItems[index] != 0) {
+            bouncingScene->removeItem(brickItems[index]);
+            delete brickItems[index];
+            brickItems[index] = 0;
+        }
+    }
+}
+
+void BBWidget::resetBricks()
+{
+    int i, size = brickItems.size();
+    
+    for (i = 0; i < size; i++) {
+        if (brickItems[i] != 0) {
+            bouncingScene->removeItem(brickItems[i]);
+            delete brickItems[i];
+            brickItems[i] = 0;
+        }
+    }
+    brickItems.clear();
 }

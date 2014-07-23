@@ -1,6 +1,9 @@
 #include "Brick.h"
 #include "BrickArea.h"
 
+const float Brick::DEFAULT_WIDTH = 40.0;
+const float Brick::DEFAULT_HEIGHT = 20.0;
+
 Brick::Brick() :
     row_(0), column_(0), parent_(0), hitPoints_(1), breakable_(true),
     color_(0)

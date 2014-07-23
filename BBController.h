@@ -5,6 +5,10 @@
 
 class BBGame;
 class GameObject;
+class Brick;
+
+/// The number of brick colors.
+const int NUM_COLORS = 8;
 
 /**
  *  @class  BBController
@@ -35,6 +39,10 @@ public:
     static const char * BALL_IMG;
     /// Path to the bar's image.
     static const char * BAR_IMG;
+    /// Path to the bricks' images.
+    static const char * BRICK_IMGS[NUM_COLORS];
+    /// Prefix for default levels.
+    static const char * LEVEL_NAME_PREFIX;
 
     /// BBController constructor.
     explicit BBController(unsigned width, unsigned height, QObject * parent = 0);
@@ -70,6 +78,12 @@ signals:
     void drawBall(const GameObject & ball);
     /// Draws the bar on the scene.
     void drawBar(const GameObject & bar);
+    /// Draws the brick on the scene.
+    void drawBrick(const Brick & brick);
+    /// Removes the brick on the given index.
+    void removeBrick(unsigned index);
+    /// Resets the number of bricks objects on the scene.
+    void resetBricks();
 };
 
 #endif /// NOT BB_CONTROLLER_H

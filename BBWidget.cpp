@@ -39,6 +39,8 @@ BBWidget::BBWidget(BBController & controller, QWidget * parent) :
             this, SLOT(drawBar(const GameObject &)));
     connect(&controller, SIGNAL(drawBrick(const Brick &)),
             this, SLOT(drawBrick(const Brick &)));
+    connect(&controller, SIGNAL(removeBrick(unsigned)),
+            this, SLOT(removeBrick(unsigned)));
     connect(&controller, SIGNAL(resetBricks()),
             this, SLOT(resetBricks()));
     connect(bouncingView, SIGNAL(leftMoveEvent()),

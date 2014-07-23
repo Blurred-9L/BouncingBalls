@@ -81,12 +81,11 @@ public:
     void onGameOver();
     /// Performs action when Ball collides with Brick.
     void onBarBallCollision();
-    /// Performs action when Ball collides with Bar.
-    void onBrickBallCollision(Brick & brick);
     
     /// Checks collision between bar and ball.
     static bool checkCollision(Ball & ball, Bar & bar);
-    /// Checks collision between bar and brick.
+    /// Checks collision between ball and brick.
+    static int checkCollision(Ball & ball, Brick & brick);
 };
 
 #endif /// NOT BB_GAME_H

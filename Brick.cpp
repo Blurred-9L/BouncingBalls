@@ -83,5 +83,5 @@ void Brick::setColor(unsigned color)
 
 bool Brick::isBroken() const
 {
-    return hitPoints_ != 0;
+    return hitPoints_ == 0;
 }

@@ -103,7 +103,7 @@ void BBGame::setDrawLevel(bool draw)
 
 void BBGame::onBrickHit(Brick & brick)
 {
-    if (!brick.isBroken()) {
+    if (!brick.isBroken() && brick.isBreakable()) {
         brick.setHitPoints(brick.hitPoints() - 1);
         /// Play hit sound.
         if (brick.isBroken()) {
@@ -202,10 +202,6 @@ void BBGame::onBarBallCollision()
     ball_->setYSpeed(-ball_->ySpeed());
 }
 
-void BBGame::onBrickBallCollision(Brick & brick)
-{
-}
-
 bool BBGame::checkCollision(Ball & ball, Bar & bar)
 {
     float left, right, up, down;
@@ -247,6 +243,58 @@ bool BBGame::checkCollision(Ball & ball, Bar & bar)
     }
     
     return collision;
+}
+
+int BBGame::checkCollision(Ball & ball, Brick & brick)
+{
+    float left, right, up, down;
+    float brickHalfWidth = Brick::DEFAULT_WIDTH * 0.5;
+    float brickHalfHeight = Brick::DEFAULT_HEIGHT * 0.5;
+    float ballCenterX = ball.x() + ball.radius();
+    float ballCenterY = ball.y() + ball.radius();
+    float brickCenterX = brick.column() * Brick::DEFAULT_WIDTH + brickHalfWidth;
+    float brickCenterY = brick.row() * Brick::DEFAULT_HEIGHT + brickHalfHeight;
+    float auxValue, lengthX, lengthY, gapX, gapY;
+    bool collision = false;
+    bool onRight = false;
+    bool onTop = false;
+    int retValue = 0;
+    
+    left = ballCenterX;
+    right = brickCenterX;
+    if (ballCenterX >= brickCenterX) {
+        auxValue = left;
+        left = right;
+        right = auxValue;
+        onRight = true;
+    }
+    lengthX = right - left;
+    gapX = lengthX - ball.radius() - brickHalfWidth; 
+    if (gapX <= 0) {
+        up = brickCenterY;    
+        down = ballCenterY;
+        if (ballCenterY <= brickCenterY) {
+            auxValue = up;
+            up = down;
+            down = auxValue;
+            onTop = true;
+        }
+        lengthY = down - up;
+        gapY = lengthY - ball.radius() - brickHalfHeight;
+        if (gapY <= 0) {
+            collision = true;
+        }
+    }
+    
+    if (collision) {
+        if (gapX >= gapY) {
+            retValue = 1;
+        } else {
+            retValue = -1;
+        }
+    }
+    
+    return retValue;
 }
 
 /*bool BBGame::checkCollision(Ball & ball, Bar & bar)

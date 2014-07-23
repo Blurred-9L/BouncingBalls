@@ -2,6 +2,7 @@
 #include "BBGame.h"
 #include "Ball.h"
 #include "Bar.h"
+#include "Brick.h"
 #include "BrickArea.h"
 #include "GameObject.h"
 
@@ -22,6 +23,10 @@ void BBWorker::execute()
 {
     Bar & bar = game.bar();
     Ball & ball = game.ball();
+    BrickArea & brickArea = game.brickArea();
+    Brick * brick = 0;
+    int brickCollisionStatus;
+    unsigned i, nBricks;
     
     while(goOn) {
         bar.updatePosition();
@@ -31,10 +36,22 @@ void BBWorker::execute()
         if (!game.isActive()) {
             ball.setX(bar.x() + (bar.width() / 2) - ball.radius());
         } else if (BBGame::checkCollision(ball, bar)) {
-            std::cout << "Collision!" << std::endl;
             game.onBarBallCollision();
         } else {
-            /// Check collision with bricks here.
+            nBricks = brickArea.totalBricks();
+            for (i = 0; i < nBricks; i++) {
+                brick = &brickArea.bricks()[i];
+                if (!brick->isBroken()) {
+                    brickCollisionStatus = BBGame::checkCollision(ball, *brick);
+                    if (brickCollisionStatus > 0) {
+                        ball.setXSpeed(-ball.xSpeed());
+                        game.onBrickHit(*brick);
+                    } else if (brickCollisionStatus < 0 ) {
+                        ball.setYSpeed(-ball.ySpeed());
+                        game.onBrickHit(*brick);
+                    }
+                }
+            }
         }
         emit updateScene();
         sleep(16);

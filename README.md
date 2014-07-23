@@ -25,11 +25,11 @@ even stop updating before it is finished.
 - Make the ball bounce on the walls.
 - Add the bar and bar movement.
 - Make the ball bounce on the bar properly <em>(Buggy as hell...)</em>.
+- Add a simple brick layout.
+- Make the ball bounce on bricks properly <em>(This one is kind of weird sometimes...)</em>.
+- Remove bricks when ball bounces on them.
 
 <strong>To do:</strong>
-- Add a simple brick layout.
-- Make the ball bounce on bricks properly.
-- Remove bricks when ball bounces on them.
 - Add sounds whenever the ball bounces on certain objects (bricks and bar).
 - Make the game stop whenever the ball falls off of the screen.
 - Add lives to the game.

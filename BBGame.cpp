@@ -3,6 +3,7 @@
 #include "Ball.h"
 #include "Bar.h"
 #include "Brick.h"
+#include "ThreadWorker.h"
 
 #include <cmath>
 #include <iostream>
@@ -123,10 +124,47 @@ void BBGame::onBrickBroken(Brick & brick)
 
 void BBGame::onAreaClear()
 {
+    std::cout << "Area clear!" << std::endl;
+    /// Update score counter.
+    /// Play victory sound.
+    /// Check if next level exists.
+    /// Load next level.
+    /// Set ball to default.
+    ball_->setX(BALL_START_X);
+    ball_->setY(BALL_START_Y);
+    ball_->setXSpeed(0);
+    ball_->setYSpeed(0);
+    /// Set bar to default.
+    bar_->setX(BAR_START_X);
+    bar_->setY(BAR_START_Y);
+    bar_->setXSpeed(0);
+    bar_->setYSpeed(0);
+    /// Wait a bit.
+    ThreadWorker::wait(1000);
+    /// Start again.
+    active_ = false;
 }
 
 void BBGame::onLose()
 {
+    std::cout << "Lost a life!" << std::endl;
+    /// Update life counter.
+    /// Play death sound.
+    /// Check that game is not over.
+    /// Set ball to default.
+    ball_->setX(BALL_START_X);
+    ball_->setY(BALL_START_Y);
+    ball_->setXSpeed(0);
+    ball_->setYSpeed(0);
+    /// Set bar to default.
+    bar_->setX(BAR_START_X);
+    bar_->setY(BAR_START_Y);
+    bar_->setXSpeed(0);
+    bar_->setYSpeed(0);
+    /// Wait a bit.
+    ThreadWorker::wait(1000);
+    /// Start again.
+    active_ = false;
 }
 
 void BBGame::onGameOver()

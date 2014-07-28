@@ -57,6 +57,9 @@ void BBWorker::execute()
                 }
             }
         }
+        if (ball.y() > height) {
+            game.onLose();
+        }
         emit updateScene();
         sleep(16);
     }

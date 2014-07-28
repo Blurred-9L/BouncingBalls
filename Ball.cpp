@@ -40,9 +40,6 @@ void Ball::checkBounds(unsigned width, unsigned height)
     if (y_ < 0) {
         ySpeed_ = -ySpeed_;
         y_ = 0;
-    } else if (y_ + rectWidth > height) {
-        ySpeed_ = -ySpeed_;
-        y_ = height - rectWidth;
     }
 }
 

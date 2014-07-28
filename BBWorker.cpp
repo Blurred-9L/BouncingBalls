@@ -27,6 +27,7 @@ void BBWorker::execute()
     Brick * brick = 0;
     int brickCollisionStatus;
     unsigned i, nBricks;
+    bool brickHit;
     
     while(goOn) {
         bar.updatePosition();
@@ -39,16 +40,19 @@ void BBWorker::execute()
             game.onBarBallCollision();
         } else {
             nBricks = brickArea.totalBricks();
-            for (i = 0; i < nBricks; i++) {
+            brickHit = false;
+            for (i = 0; i < nBricks && !brickHit; i++) {
                 brick = &brickArea.bricks()[i];
                 if (!brick->isBroken()) {
                     brickCollisionStatus = BBGame::checkCollision(ball, *brick);
                     if (brickCollisionStatus > 0) {
                         ball.setXSpeed(-ball.xSpeed());
                         game.onBrickHit(*brick);
+                        brickHit = true;
                     } else if (brickCollisionStatus < 0 ) {
                         ball.setYSpeed(-ball.ySpeed());
                         game.onBrickHit(*brick);
+                        brickHit = true;
                     }
                 }
             }

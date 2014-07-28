@@ -287,7 +287,7 @@ int BBGame::checkCollision(Ball & ball, Brick & brick)
     }
     
     if (collision) {
-        if (gapX >= gapY) {
+        if (gapX > gapY) {
             retValue = 1;
         } else {
             retValue = -1;

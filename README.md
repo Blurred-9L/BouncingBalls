@@ -29,9 +29,10 @@ even stop updating before it is finished.
 - Make the ball bounce on bricks properly <em>(This one is kind of weird sometimes...)</em>.
 - Remove bricks when ball bounces on them.
 - Make the game stop whenever the ball falls off of the screen.
+- Add sounds whenever the ball bounces on certain objects (bricks and bar). (Kind of lame...)
 
 <strong>To do:</strong>
-- Add sounds whenever the ball bounces on certain objects (bricks and bar).
+- Add backgrounds. Possibly modify level file to indicate where to find the background tile to use.
 - Add lives to the game.
 - Add a level loader and several default levels.
 - Add music, even if crappy prop music is used.

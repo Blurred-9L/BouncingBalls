@@ -9,6 +9,7 @@
 #include <QVBoxLayout>
 
 #include <QPixmap>
+#include <QBrush>
 #include <QGraphicsItem>
 #include <QCloseEvent>
 
@@ -25,6 +26,7 @@ BBWidget::BBWidget(BBController & controller, QWidget * parent) :
     
     bouncingScene = new QGraphicsScene(0, 0, width, height);
     bouncingView = new BBGraphicsView(bouncingScene);
+    bouncingView->setBackgroundBrush(QBrush(QPixmap("./img/BlueTile.png")));
     //bouncingView->setGeometry(0, 0, width, height);
     bouncingView->setMinimumSize(width, height);
     bouncingView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);

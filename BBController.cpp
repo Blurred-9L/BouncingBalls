@@ -23,6 +23,7 @@ const char * BBController::BRICK_IMGS[NUM_COLORS] =
                                      "./img/CyanBrick.png", "./img/MagentaBrick.png", "./img/YellowBrick.png",
                                      "./img/SilverBrick.png", "./img/GoldenBrick.png"};
 const char * BBController::LEVEL_NAME_PREFIX = "./levels/level_";
+const char * BBController::BALL_BOUNCE_FILE = "./sound/Bounce.wav";
 
 BBController::BBController(unsigned width, unsigned height, QObject * parent) :
     ThreadController(1, parent), isActive(false), width_(width), height_(height),

@@ -5,6 +5,7 @@ class BrickArea;
 class Brick;
 class Ball;
 class Bar;
+class SoundPlayer;
 
 class BBGame {
 private:
@@ -18,6 +19,8 @@ private:
     bool active_;
     /// Flag indicating if the level needs to be redrawn.
     bool drawLevel_;
+    /// The sound player used for sound effect.
+    SoundPlayer * soundPlayer_;
 
 public:
     /// The default number of rows.

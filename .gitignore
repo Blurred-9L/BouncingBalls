@@ -1,3 +1,4 @@
 *.o
 BouncingBalls
 moc_*.cpp
+sound/

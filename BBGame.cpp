@@ -4,6 +4,8 @@
 #include "Bar.h"
 #include "Brick.h"
 #include "ThreadWorker.h"
+#include "BBController.h"
+#include "BBSoundPlayer.h"
 
 #include <cmath>
 #include <iostream>
@@ -22,7 +24,8 @@ const float BBGame::BAR_START_X = 190.0;
 const float BBGame::BAR_START_Y = 580.0;
 
 BBGame::BBGame() :
-    brickArea_(0), ball_(0), bar_(0), active_(false), drawLevel_(false)
+    brickArea_(0), ball_(0), bar_(0), active_(false), drawLevel_(false),
+    soundPlayer_(0)
 {
     /// Set ball starting position and radius.
     ball_ = new Ball();
@@ -37,6 +40,8 @@ BBGame::BBGame() :
     bar_->setY(BAR_START_Y);
     /// Creates the BrickArea object.
     brickArea_ = new BrickArea(DEFAULT_ROWS, DEFAULT_COLS);
+    
+    soundPlayer_ = new BBSoundPlayer();
 }
 
 BBGame::~BBGame()
@@ -49,6 +54,9 @@ BBGame::~BBGame()
     }
     if (bar_ != 0) {
         delete bar_;
+    }
+    if (soundPlayer_ != 0) {
+        delete soundPlayer_;
     }
 }
 
@@ -107,6 +115,7 @@ void BBGame::onBrickHit(Brick & brick)
     if (!brick.isBroken() && brick.isBreakable()) {
         brick.setHitPoints(brick.hitPoints() - 1);
         /// Play hit sound.
+        soundPlayer_->playSound(BBController::BALL_BOUNCE_SOUND);
         if (brick.isBroken()) {
             this->onBrickBroken(brick);
         }
@@ -238,6 +247,7 @@ void BBGame::onBarBallCollision()
         ball_->setXSpeed(DEFAULT_BALL_SPEED * 1.5);
     }
     ball_->setYSpeed(-ball_->ySpeed());
+    soundPlayer_->playSound(BBController::BALL_BOUNCE_SOUND);
 }
 
 bool BBGame::checkCollision(Ball & ball, Bar & bar)

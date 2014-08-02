@@ -43,6 +43,15 @@ public:
     static const char * BRICK_IMGS[NUM_COLORS];
     /// Prefix for default levels.
     static const char * LEVEL_NAME_PREFIX;
+    /// Path to bounce sound file.
+    static const char * BALL_BOUNCE_FILE;
+    
+    /**
+     *  @enum   SoundIndex
+     */
+    enum SoundIndex {
+        BALL_BOUNCE_SOUND
+    };
 
     /// BBController constructor.
     explicit BBController(unsigned width, unsigned height, QObject * parent = 0);

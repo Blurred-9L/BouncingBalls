@@ -1,8 +1,16 @@
+/**
+ *  @file   GameObject.h
+ *  @author Blurred-9L
+ */
+
 #ifndef GAME_OBJECT_H
 #define GAME_OBJECT_H
 
 /**
  *  @class  GameObject
+ *
+ *  @brief  Base class that stores common data used during the game,
+ *          including position coordinates and speed.
  */
 class GameObject {
 protected:

@@ -1,3 +1,8 @@
+/**
+ *  @file   ThreadController.h
+ *  @author Blurred-9L
+ */
+
 #ifndef THREAD_CONTROLLER_H
 #define THREAD_CONTROLLER_H
 
@@ -8,6 +13,8 @@ class ThreadWorker;
 
 /**
  *  @class  ThreadController
+ *
+ *  @brief  Base class to control threaded Qt applications.
  */
 class ThreadController : public QObject {
 Q_OBJECT

@@ -1,3 +1,8 @@
+/**
+ *  @file   ThreadWorker.cpp
+ *  @author Blurred-9L
+ */
+
 #include "ThreadWorker.h"
 
 #include <ctime>

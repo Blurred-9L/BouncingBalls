@@ -1,3 +1,8 @@
+/**
+ *  @file   Brick.h
+ *  @author Blurred-9L
+ */
+
 #ifndef BRICK_H
 #define BRICK_H
 
@@ -5,6 +10,9 @@ class BrickArea;
 
 /**
  *  @class  Brick
+ *
+ *  @brief  Class that handles the state of bricks on
+ *          the game scene.
  */
 class Brick {
 private:
@@ -29,6 +37,8 @@ public:
 
     /**
      *  @enum   BrickType
+     *
+     *  @brief  Enum for brick types.
      */
     enum BrickType {
         BRICK_TYPE_NORMAL,
@@ -39,6 +49,8 @@ public:
      
     /**
      *  @enum   BrickColor
+     *
+     *  @brief  Enum for brick colors.
      */
     enum BrickColor {
         BRICK_COLOR_RED,

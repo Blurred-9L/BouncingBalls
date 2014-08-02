@@ -1,3 +1,8 @@
+/**
+ *  @file   BBGame.h
+ *  @author Blurred-9L
+ */
+
 #ifndef BB_GAME_H
 #define BB_GAME_H
 
@@ -7,6 +12,11 @@ class Ball;
 class Bar;
 class SoundPlayer;
 
+/**
+ *  @class  BBGame
+ *
+ *  @brief  Holds related information to the BouncingBalls game.
+ */
 class BBGame {
 private:
     /// The BrickArea object.

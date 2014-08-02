@@ -1,10 +1,22 @@
+/**
+ *  @file   Ball.h
+ *  @author Blurred-9L
+ */
+
 #ifndef BALL_H
 #define BALL_H
 
 #include "GameObject.h"
 
+/**
+ *  @class  Ball
+ *
+ *  @brief  Class representing the Ball game object on the game's
+ *          scene.
+ */
 class Ball : public GameObject {
 protected:
+    /// The ball's radius.
     float radius_;
     
 public:

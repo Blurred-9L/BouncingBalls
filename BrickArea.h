@@ -1,3 +1,8 @@
+/**
+ *  @file   BrickArea.h
+ *  @author Blurred-9L
+ */
+
 #ifndef BRICK_AREA_H
 #define BRICK_AREA_H
 
@@ -5,6 +10,9 @@ class Brick;
 
 /**
  *  @class  BrickArea
+ *
+ *  @brief  Handles bricks on the game scene as a whole and
+ *          manages level loading.
  */
 class BrickArea {
 private:

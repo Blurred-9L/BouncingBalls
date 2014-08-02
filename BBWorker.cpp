@@ -1,3 +1,8 @@
+/**
+ *  @file   BBWorker.cpp
+ *  @author Blurred-9L
+ */
+
 #include "BBWorker.h"
 #include "BBGame.h"
 #include "Ball.h"
@@ -8,6 +13,16 @@
 
 #include <iostream>
 
+/**
+ *  @details    The BBWorker object's constructor.
+ *
+ *  @param[in]  id                  The thread's id.
+ *  @param[in]  game                The BBGame's instance.
+ *  @param[in]  goOn                The reference to the flag to keep processing data.
+ *  @param[in]  width               The game's scene width.
+ *  @param[in]  height              The game's scene height.
+ *  @param[in]  parent              This object's QObject parent.
+ */
 BBWorker::BBWorker(unsigned id, BBGame & game, bool & goOn, unsigned width,
                    unsigned height, QObject * parent) :
     ThreadWorker(id, parent), game(game), goOn(goOn), width(width),
@@ -15,10 +30,18 @@ BBWorker::BBWorker(unsigned id, BBGame & game, bool & goOn, unsigned width,
 {
 }
 
+/**
+ *  @details    The BBWorker object's destructor.
+ */
 BBWorker::~BBWorker()
 {
 }
 
+/**
+ *  @details    Executes this thread's work. This includes updating
+ *              positions, checking for collisions and asking the
+ *              UI thread to update the scene.
+ */
 void BBWorker::execute()
 {
     Bar & bar = game.bar();

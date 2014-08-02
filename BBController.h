@@ -1,3 +1,8 @@
+/**
+ *  @file   BBcontroller.h
+ *  @author Blurred-9L
+ */
+
 #ifndef BB_CONTROLLER_H
 #define BB_CONTROLLER_H
 
@@ -12,6 +17,9 @@ const int NUM_COLORS = 8;
 
 /**
  *  @class  BBController
+ *
+ *  @brief  Class that handles interactions between the game's
+ *          processing, user input and the scene's drawing.
  */
 class BBController : public ThreadController {
 Q_OBJECT
@@ -48,6 +56,8 @@ public:
     
     /**
      *  @enum   SoundIndex
+     *
+     *  @brief  Index values to use with the SoundPlayer class.
      */
     enum SoundIndex {
         BALL_BOUNCE_SOUND

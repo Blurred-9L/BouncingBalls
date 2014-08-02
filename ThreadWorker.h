@@ -1,3 +1,8 @@
+/**
+ *  @file   ThreadWorker.h
+ *  @author Blurred-9L
+ */
+
 #ifndef THREAD_WORKER_H
 #define THREAD_WORKER_H
 
@@ -5,6 +10,9 @@
 
 /**
  *  @class  ThreadWorker
+ *
+ *  @brief  Base class to implement a thread's work to be
+ *          executed.
  */
 class ThreadWorker : public QObject {
 Q_OBJECT

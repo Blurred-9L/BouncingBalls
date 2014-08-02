@@ -1,3 +1,8 @@
+/**
+ *  @file   BBWorker.h
+ *  @author Blurred-9L
+ */
+
 #ifndef BB_WORKER_H
 #define BB_WORKER_H
 
@@ -5,6 +10,11 @@
 
 class BBGame;
 
+/**
+ *  @class  BBWorker
+ *
+ *  @brief  Handles the game's processing in a different thread.
+ */
 class BBWorker : public ThreadWorker {
 Q_OBJECT
 

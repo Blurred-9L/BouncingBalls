@@ -1,3 +1,8 @@
+/**
+ *  @file   BBSoundPlayer.h
+ *  @author Blurred-9L
+ */
+
 #ifndef BB_SOUND_PLAYER_H
 #define BB_SOUND_PLAYER_H
 
@@ -9,6 +14,9 @@
 
 /**
  *  @class  BBSoundPlayer
+ *
+ *  @brief  Handles sound effects playback by using
+ *          Qt's Phonon module.
  */
 class BBSoundPlayer : public QtSoundPlayer {
 Q_OBJECT

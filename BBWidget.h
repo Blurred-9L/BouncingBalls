@@ -1,3 +1,8 @@
+/**
+ *  @file   BBWidget.h
+ *  @author Blurred-9L
+ */
+
 #ifndef BB_WIDGET_H
 #define BB_WIDGET_H
 
@@ -17,6 +22,9 @@ class Brick;
 
 /**
  *  @class  BBWidget
+ *
+ *  @brief  Class that handles the graphic user interface used
+ *          to display the game's objects and scene.
  */
 class BBWidget : public QWidget {
 Q_OBJECT

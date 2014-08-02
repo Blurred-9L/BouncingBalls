@@ -1,3 +1,8 @@
+/**
+ *  @file   ThreadController.cpp
+ *  @author Blurred-9L
+ */
+
 #include "ThreadController.h"
 #include "ThreadWorker.h"
 

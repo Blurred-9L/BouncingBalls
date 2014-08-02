@@ -1,3 +1,8 @@
+/**
+ *  @file   BBGraphicsView
+ *  @author Blurred-9L
+ */
+
 #ifndef BB_GRAPHICS_VIEW_H
 #define BB_GRAPHICS_VIEW_H
 
@@ -5,6 +10,8 @@
 
 /**
  *  @class  BBGraphicsView
+ *
+ *  @brief  Custom QGraphicsView used to handle user input.
  */
 class BBGraphicsView : public QGraphicsView {
 Q_OBJECT

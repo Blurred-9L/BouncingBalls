@@ -1,8 +1,19 @@
+/**
+ *  @file   Bar.h
+ *  @author Blurred-9L
+ */
+
 #ifndef BAR_H
 #define BAR_H
 
 #include "GameObject.h"
 
+/**
+ *  @class  Bar
+ *
+ *  @brief  Class representing the movable bar on the bottom
+ *          of the screen used to mantain the ball in play.
+ */
 class Bar : public GameObject {
 private:
     /// The Bar's width.

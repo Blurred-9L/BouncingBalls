@@ -1,3 +1,8 @@
+/**
+ *  @file   BBWidget.cpp
+ *  @author Blurred-9L
+ */
+
 #include "BBWidget.h"
 #include "BBController.h"
 #include "ThreadWorker.h"
@@ -16,6 +21,12 @@
 #include <ctime>
 #include <iostream>
 
+/**
+ *  @details    The BBWidget object's constructor.
+ *
+ *  @param[in]  controller          The application's controller.
+ *  @param[in]  parent              This object's QObject parent.
+ */
 BBWidget::BBWidget(BBController & controller, QWidget * parent) :
     QWidget(parent), ballItem(0), barItem(0), controller(controller)
 {
@@ -63,6 +74,9 @@ BBWidget::BBWidget(BBController & controller, QWidget * parent) :
     }
 }
 
+/**
+ *  @details    The BBWidget object's destructor.
+ */
 BBWidget::~BBWidget()
 {
     for (int i = 0; i < NUM_COLORS; i++) {
@@ -70,6 +84,10 @@ BBWidget::~BBWidget()
     }
 }
 
+/**
+ *  @details    Handles a window close event in order to stop the threads
+ *              used and free the required memory.
+ */
 void BBWidget::closeEvent(QCloseEvent * event)
 {
     controller.stopThreads();
@@ -77,6 +95,9 @@ void BBWidget::closeEvent(QCloseEvent * event)
     event->accept();
 }
 
+/**
+ *  @details    Draws or updates the ball object on the screen.
+ */
 void BBWidget::drawBall(const GameObject & ball)
 {
     if (ballItem == 0) {
@@ -86,6 +107,9 @@ void BBWidget::drawBall(const GameObject & ball)
     ballItem->setPos(ball.x(), ball.y());
 }
 
+/**
+ *  @details    Draws or updates the bar object on the screen.
+ */
 void BBWidget::drawBar(const GameObject & bar)
 {
     if (barItem == 0) {
@@ -94,6 +118,9 @@ void BBWidget::drawBar(const GameObject & bar)
     barItem->setPos(bar.x(), bar.y());
 }
 
+/**
+ *  @details    Draws a brick on the scene.
+ */
 void BBWidget::drawBrick(const Brick & brick)
 {
     unsigned row = brick.row(), column = brick.column();
@@ -104,6 +131,9 @@ void BBWidget::drawBrick(const Brick & brick)
     brickItems.append(brickItem);
 }
 
+/**
+ *  @details    Removes a broken brick from the scene. 
+ */
 void BBWidget::removeBrick(unsigned index)
 {
     if (index < (unsigned)brickItems.size()) {
@@ -115,6 +145,9 @@ void BBWidget::removeBrick(unsigned index)
     }
 }
 
+/**
+ *  @details    Removes all bricks from the scene.
+ */
 void BBWidget::resetBricks()
 {
     int i, size = brickItems.size();

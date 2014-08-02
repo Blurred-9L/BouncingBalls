@@ -1,3 +1,8 @@
+/**
+ *  @file   BBController.cpp
+ *  @author Blurred-9L
+ */
+
 #include "BBController.h"
 #include "Ball.h"
 #include "Bar.h"
@@ -25,6 +30,14 @@ const char * BBController::BRICK_IMGS[NUM_COLORS] =
 const char * BBController::LEVEL_NAME_PREFIX = "./levels/level_";
 const char * BBController::BALL_BOUNCE_FILE = "./sound/Bounce.wav";
 
+/**
+ *  @details    The BBController object's constructor. It verifies that
+ *              the given width and height are within the allowed ranges.
+ *
+ *  @param[in]  width               The game's scene width.
+ *  @param[in]  height              The game's scene height.
+ *  @param[in]  parent              The BBController's QObject parent.
+ */
 BBController::BBController(unsigned width, unsigned height, QObject * parent) :
     ThreadController(1, parent), isActive(false), width_(width), height_(height),
     game_(0)
@@ -41,6 +54,9 @@ BBController::BBController(unsigned width, unsigned height, QObject * parent) :
     }
 }
 
+/**
+ *  @details    The BBController object's destructor.
+ */
 BBController::~BBController()
 {
     if (game_ != 0) {
@@ -48,21 +64,40 @@ BBController::~BBController()
     }
 }
 
+/**
+ *  @details    Gets the BBController's game scene width attribute.
+ *
+ *  @return     The width of the game's scene.
+ */
 unsigned BBController::width()
 {
     return width_;
 }
 
+/**
+ *  @details    Gets the BBController's game scene height attribute.
+ *
+ *  @return     The height of the game's scene.
+ */
 unsigned BBController::height()
 {
     return height_;
 }
 
+/**
+ *  @details    Turns off the flag that keeps the active threads running.
+ */
 void BBController::stopThreads()
 {
     isActive = false;
 }
 
+/**
+ *  @details    Starts the necessary threads for the game to work. It also
+ *              instantiates the Game object, which will hold game related
+ *              data. The started thread will be in charge of handling all
+ *              the position and state updating.
+ */
 void BBController::startThreads()
 {
     QThread * thread;
@@ -100,33 +135,49 @@ void BBController::startThreads()
     }
 }
 
+/**
+ *  @details    Starts a single thread. No implementation given.
+ *
+ *  @param[in]  index               The index of the thread to start.
+ */
 void BBController::startThread(unsigned index)
 {
 }
 
+/**
+ *  @details    Updates the necessary objects on the game's scene
+ *              by telling the scene to redraw objects as needed.
+ */
 void BBController::updateScene()
 {
     BrickArea & brickArea = game_->brickArea();
     unsigned nBricks = brickArea.totalBricks();
     unsigned i;
     
+    /// If the whole level needs to be drawn...
     if (game_->shouldDrawLevel()) {
         emit resetBricks();
+        /// Draws all bricks.
         for (i = 0; i < nBricks; i++) {
             emit drawBrick(brickArea.bricks()[i]);
         }
         game_->setDrawLevel(false);
     } else {
+        /// Removes the broken bricks.
         for (i = 0; i < nBricks; i++) {
             if (brickArea.bricks()[i].isBroken()) {
                 emit removeBrick(i);
             }
         }
     }
+    /// Draws the ball and the bar's new position.
     emit drawBall(game_->ball());
     emit drawBar(game_->bar());
 }
 
+/**
+ *  @details    Responds to the user's press of the left movement key.
+ */
 void BBController::handleLeftMovement()
 {
     game_->bar().setXSpeed(-BBGame::DEFAULT_BAR_SPEED);
@@ -136,6 +187,9 @@ void BBController::handleLeftMovement()
     
 }
 
+/**
+ *  @details    Responds to the user's press of the right movement key.
+ */
 void BBController::handleRightMovement()
 {
     game_->bar().setXSpeed(BBGame::DEFAULT_BAR_SPEED);
@@ -144,6 +198,9 @@ void BBController::handleRightMovement()
     }
 }
 
+/**
+ *  @details    Responds to the user's press of the accept key.
+ */
 void BBController::handleAccept()
 {
     if (!game_->isActive()) {
@@ -153,6 +210,9 @@ void BBController::handleAccept()
     }
 }
 
+/**
+ *  @details    Responds to the user's release of the left movement key.
+ */
 void BBController::handleLeftStop()
 {
     game_->bar().setXSpeed(0.0);
@@ -161,6 +221,9 @@ void BBController::handleLeftStop()
     }
 }
 
+/**
+ *  @details    Responds to the user's release of the right movement key.
+ */
 void BBController::handleRightStop()
 {
     game_->bar().setXSpeed(0.0);

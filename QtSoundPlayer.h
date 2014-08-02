@@ -1,3 +1,8 @@
+/**
+ *  @file   QtSoundPlayer.h
+ *  @author Blurred-9L
+ */
+
 #ifndef QT_SOUND_PLAYER_H
 #define QT_SOUND_PLAYER_H
 
@@ -8,6 +13,9 @@
 
 /**
  *  @class  QtSoundPlayer
+ *
+ *  @brief  Class that serves as the parent class for SoundPlayer
+ *          classes that might use Qt to provide sound effects.
  */
 class QtSoundPlayer : public QObject, public SoundPlayer {
 Q_OBJECT

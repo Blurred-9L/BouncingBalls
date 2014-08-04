@@ -11,6 +11,7 @@ class Brick;
 class Ball;
 class Bar;
 class SoundPlayer;
+class LevelLoader;
 
 /**
  *  @class  BBGame
@@ -31,6 +32,8 @@ private:
     bool drawLevel_;
     /// The sound player used for sound effect.
     SoundPlayer * soundPlayer_;
+    /// The level loader used.
+    LevelLoader * levelLoader_;
 
 public:
     /// The default number of rows.
@@ -78,6 +81,10 @@ public:
     bool isActive() const;
     /// Checks if level should be drawn.
     bool shouldDrawLevel() const;
+    /// Gets the LevelLoader instance.
+    const LevelLoader & levelLoader() const;
+    /// Gets the LevelLoader instance.
+    LevelLoader & levelLoader();
     /// Sets the game active flag.
     void setActive(bool active);
     /// Sets the draw level flag.

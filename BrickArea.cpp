@@ -6,17 +6,6 @@
 #include "BrickArea.h"
 #include "Brick.h"
 
-#include <fstream>
-using std::ifstream;
-#include <string>
-using std::string;
-#include <cstdio>
-using std::scanf;
-
-/// Parses a line into a Brick object.
-static bool parseToBrick(const string & line, Brick & brick,
-                         unsigned rows, unsigned cols);
-
 /**
  *  @details    The BrickArea object's constructor. The coordinate (0,0)
  *              for (row, column) corresponds to the game's scene coordinate
@@ -27,7 +16,7 @@ static bool parseToBrick(const string & line, Brick & brick,
  */
 BrickArea::BrickArea(unsigned nRows, unsigned nColumns) :
     bricks_(0), nRows_(nRows), nColumns_(nColumns), totalBricks_(0),
-    breakableBricks_(0), remainingBricks_(0), pathToBackgroundTile_()
+    breakableBricks_(0), remainingBricks_(0)
 {
     unsigned size = nRows * nColumns;
     
@@ -119,17 +108,6 @@ unsigned BrickArea::remainingBricks() const
 }
 
 /**
- *  @details    Gets the BrickArea's pathToBackgroundTile attribute.
- *
- *  @return     A string with the name of the path to the background file
- *              that is used in the current level.
- */
-const string & BrickArea::pathToBackgroundTile() const
-{
-    return pathToBackgroundTile_;
-}
-
-/**
  *  @details    Sets the BrickArea's totalBricks attribute.
  *
  *  @param[in]  totalBricks         The new number of total bricks.
@@ -160,45 +138,6 @@ void BrickArea::setRemainingBricks(unsigned remainingBricks)
 }
 
 /**
- *  @details    Loads a level by reading a file and setting all required
- *              attributes on the array of bricks.
- *
- *  @param[in]  levelName           The name of the file with the level info.
- *
- *  @return     A boolean value indicating if everything was ok when loading
- *              the level.
- */
-bool BrickArea::loadLevel(const char * levelName)
-{
-    ifstream levelFile(levelName);
-    string line;
-    unsigned index = 0;
-    bool levelLoaded = false;
-    bool parseOk = true;
-    
-    if (levelFile.is_open()) {
-        totalBricks_ = breakableBricks_ = remainingBricks_ = 0;
-        getline(levelFile, pathToBackgroundTile_);
-        getline(levelFile, line);
-        while (!levelFile.eof() && parseOk) {
-            parseOk = parseToBrick(line, bricks_[index], nRows_, nColumns_);
-            if (bricks_[index].isBreakable()) {
-                breakableBricks_++;
-                remainingBricks_++;
-            }
-            totalBricks_++;
-            line = "";
-            getline(levelFile, line);
-            index++;
-        }
-        levelLoaded = (parseOk && levelFile.eof());
-        levelFile.close();
-    }
-    
-    return levelLoaded;
-}
-
-/**
  *  @details    Checks if all the bricks that can be broken are
  *              already broken.
  *
@@ -207,55 +146,4 @@ bool BrickArea::loadLevel(const char * levelName)
 bool BrickArea::isCleared() const
 {
     return (remainingBricks_ == 0);
-}
-
-///////////////
-// Functions //
-///////////////
-
-/**
- *  @details    Sets a bricks attributes to the ones specified by a line
- *              on the level file.
- *
- *  @param[in]  line                The line with the brick's data.
- *  @param[in}  brick               The brick to use.
- *  @param[in]  rows                The maximum number of rows.
- *  @param[in]  cols                The maximum number of columns.
- *
- *  @return     A boolean value indicating if the line was parsed correctly.
- */
-bool parseToBrick(const string & line, Brick & brick,
-                  unsigned rows, unsigned cols)
-{
-    unsigned row, column, color, breakable, type;
-    bool parseOk = true;
-    
-    sscanf(line.c_str(), "%u,%u,%u,%u,%u", &row, &column, &color, &breakable, &type);
-    if ((row >= rows) || (column >= cols) ||
-        (color >= Brick::BRICK_COLOR_N_COLORS) ||
-        (type >= Brick::BRICK_TYPE_N_TYPES)) {
-        parseOk = false;
-    }
-    
-    if (parseOk) {
-        brick.setRow(row);
-        brick.setColumn(column);
-        brick.setBreakable(breakable != 0);
-        switch (type) {
-        case Brick::BRICK_TYPE_NORMAL:
-            brick.setHitPoints(1);
-            break;
-        case Brick::BRICK_TYPE_METAL:
-            brick.setHitPoints(2);
-            color = Brick::BRICK_COLOR_SILVER;
-            break;
-        case Brick::BRICK_TYPE_IMMORTAL:
-            brick.setHitPoints(0xFFFFFFFF);
-            color = Brick::BRICK_COLOR_GOLDEN;
-            break;
-        }
-        brick.setColor(color);
-    }
-    
-    return parseOk;
 }

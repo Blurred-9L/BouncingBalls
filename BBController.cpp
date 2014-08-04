@@ -8,6 +8,7 @@
 #include "Bar.h"
 #include "Brick.h"
 #include "BrickArea.h"
+#include "LevelLoader.h"
 #include "BBGame.h"
 #include "BBWorker.h"
 
@@ -112,7 +113,7 @@ void BBController::startThreads()
         
         /// This is used for testing:
         levelName += "1";
-        game_->brickArea().loadLevel(levelName.c_str());
+        game_->levelLoader().loadLevel(levelName.c_str(), game_->brickArea());
         game_->setDrawLevel(true);
         
         /// Create new worker.
@@ -156,7 +157,7 @@ void BBController::updateScene()
     
     /// If the whole level needs to be drawn...
     if (game_->shouldDrawLevel()) {
-        emit drawBackground(game_->brickArea().pathToBackgroundTile().c_str());
+        emit drawBackground(game_->levelLoader().pathToBackgroundTile().c_str());
         emit resetBricks();
         /// Draws all bricks.
         for (i = 0; i < nBricks; i++) {

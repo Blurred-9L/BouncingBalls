@@ -11,6 +11,7 @@
 #include "ThreadWorker.h"
 #include "BBController.h"
 #include "BBSoundPlayer.h"
+#include "LevelLoader.h"
 
 #include <cmath>
 #include <iostream>
@@ -35,7 +36,7 @@ const float BBGame::BAR_START_Y = 580.0;
  */
 BBGame::BBGame() :
     brickArea_(0), ball_(0), bar_(0), active_(false), drawLevel_(false),
-    soundPlayer_(0)
+    soundPlayer_(0), levelLoader_(0)
 {
     /// Set ball starting position and radius.
     ball_ = new Ball();
@@ -52,6 +53,8 @@ BBGame::BBGame() :
     brickArea_ = new BrickArea(DEFAULT_ROWS, DEFAULT_COLS);
     
     soundPlayer_ = new BBSoundPlayer();
+    
+    levelLoader_ = new LevelLoader();
 }
 
 /**
@@ -70,6 +73,9 @@ BBGame::~BBGame()
     }
     if (soundPlayer_ != 0) {
         delete soundPlayer_;
+    }
+    if (levelLoader_ != 0) {
+        delete levelLoader_;
     }
 }
 
@@ -151,6 +157,26 @@ bool BBGame::isActive() const
 bool BBGame::shouldDrawLevel() const
 {
     return drawLevel_;
+}
+
+/**
+ *  @details    Gets the BBGame's levelLoader attribute.
+ *
+ *  @return     A constant reference to the LevelLoader object.
+ */
+const LevelLoader & BBGame::levelLoader() const
+{
+    return *levelLoader_;
+}
+
+/**
+ *  @details    Gets the BBGame's levelLoader attribute.
+ *
+ *  @return     A reference to the LevelLoader object.
+ */
+LevelLoader & BBGame::levelLoader()
+{
+    return *levelLoader_;
 }
 
 /**

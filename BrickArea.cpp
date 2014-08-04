@@ -27,7 +27,7 @@ static bool parseToBrick(const string & line, Brick & brick,
  */
 BrickArea::BrickArea(unsigned nRows, unsigned nColumns) :
     bricks_(0), nRows_(nRows), nColumns_(nColumns), totalBricks_(0),
-    breakableBricks_(0), remainingBricks_(0)
+    breakableBricks_(0), remainingBricks_(0), pathToBackgroundTile_()
 {
     unsigned size = nRows * nColumns;
     
@@ -119,6 +119,17 @@ unsigned BrickArea::remainingBricks() const
 }
 
 /**
+ *  @details    Gets the BrickArea's pathToBackgroundTile attribute.
+ *
+ *  @return     A string with the name of the path to the background file
+ *              that is used in the current level.
+ */
+const string & BrickArea::pathToBackgroundTile() const
+{
+    return pathToBackgroundTile_;
+}
+
+/**
  *  @details    Sets the BrickArea's totalBricks attribute.
  *
  *  @param[in]  totalBricks         The new number of total bricks.
@@ -167,6 +178,7 @@ bool BrickArea::loadLevel(const char * levelName)
     
     if (levelFile.is_open()) {
         totalBricks_ = breakableBricks_ = remainingBricks_ = 0;
+        getline(levelFile, pathToBackgroundTile_);
         getline(levelFile, line);
         while (!levelFile.eof() && parseOk) {
             parseOk = parseToBrick(line, bricks_[index], nRows_, nColumns_);

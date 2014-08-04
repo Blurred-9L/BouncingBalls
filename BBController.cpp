@@ -156,6 +156,7 @@ void BBController::updateScene()
     
     /// If the whole level needs to be drawn...
     if (game_->shouldDrawLevel()) {
+        emit drawBackground(game_->brickArea().pathToBackgroundTile().c_str());
         emit resetBricks();
         /// Draws all bricks.
         for (i = 0; i < nBricks; i++) {

@@ -103,6 +103,8 @@ signals:
     void removeBrick(unsigned index);
     /// Resets the number of bricks objects on the scene.
     void resetBricks();
+    /// Draws the background of the level.
+    void drawBackground(const char * tileFile);
 };
 
 #endif /// NOT BB_CONTROLLER_H

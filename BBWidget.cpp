@@ -37,7 +37,6 @@ BBWidget::BBWidget(BBController & controller, QWidget * parent) :
     
     bouncingScene = new QGraphicsScene(0, 0, width, height);
     bouncingView = new BBGraphicsView(bouncingScene);
-    bouncingView->setBackgroundBrush(QBrush(QPixmap("./img/BlueTile.png")));
     //bouncingView->setGeometry(0, 0, width, height);
     bouncingView->setMinimumSize(width, height);
     bouncingView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -56,6 +55,8 @@ BBWidget::BBWidget(BBController & controller, QWidget * parent) :
             this, SLOT(removeBrick(unsigned)));
     connect(&controller, SIGNAL(resetBricks()),
             this, SLOT(resetBricks()));
+    connect(&controller, SIGNAL(drawBackground(const char *)),
+            this, SLOT(drawBackground(const char *)));
     connect(bouncingView, SIGNAL(leftMoveEvent()),
             &controller, SLOT(handleLeftMovement()));
     connect(bouncingView, SIGNAL(rightMoveEvent()),
@@ -160,4 +161,15 @@ void BBWidget::resetBricks()
         }
     }
     brickItems.clear();
+}
+
+/**
+ *  @details    Draws the background by using the image tile given. This tile
+ *              should be 40 x 40 pixels preferrably.
+ *
+ *  @param[in]  tileFile            The path to the file with the tile to use.
+ */
+void BBWidget::drawBackground(const char * tileFile)
+{
+    bouncingView->setBackgroundBrush(QBrush(QPixmap(tileFile)));
 }

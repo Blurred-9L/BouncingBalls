@@ -6,6 +6,9 @@
 #ifndef BRICK_AREA_H
 #define BRICK_AREA_H
 
+#include <string>
+using std::string;
+
 class Brick;
 
 /**
@@ -28,6 +31,8 @@ private:
     unsigned breakableBricks_;
     /// The number of not yet broken bricks.
     unsigned remainingBricks_;
+    /// The name of the current tile used for background.
+    string pathToBackgroundTile_;
     
 public:
     /// BrickArea constructor.
@@ -48,6 +53,8 @@ public:
     unsigned breakableBricks() const;
     /// Gets the number of remaining bricks.
     unsigned remainingBricks() const;
+    /// Gets the path to the background tile.
+    const string & pathToBackgroundTile() const;
     /// Sets the total of bricks.
     void setTotalBricks(unsigned totalBricks);
     /// Sets the number of breakable bricks.

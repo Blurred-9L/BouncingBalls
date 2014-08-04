@@ -65,6 +65,8 @@ public slots:
     void removeBrick(unsigned index);
     /// Resets the number of bricks on the screen.
     void resetBricks();
+    /// Draws the background tile.
+    void drawBackground(const char * tileFile);
 };
 
 #endif /// NOT BB_WIDGET_H

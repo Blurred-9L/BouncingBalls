@@ -17,6 +17,8 @@
 #include <iostream>
 #include <string>
 using std::string;
+#include <sstream>
+using std::ostringstream;
 
 const int BBController::MIN_WIDTH = 320;
 const int BBController::MIN_HEIGHT = 480;
@@ -103,7 +105,7 @@ void BBController::startThreads()
 {
     QThread * thread;
     BBWorker * worker;
-    string levelName = LEVEL_NAME_PREFIX;
+    ostringstream levelName;
 
     if (!isActive) {
         isActive = true;
@@ -111,9 +113,8 @@ void BBController::startThreads()
         emit drawBall(game_->ball());
         emit drawBar(game_->bar());
         
-        /// This is used for testing:
-        levelName += "1";
-        game_->levelLoader().loadLevel(levelName.c_str(), game_->brickArea());
+        levelName << LEVEL_NAME_PREFIX << game_->levelNumber();
+        game_->levelLoader().loadLevel(levelName.str().c_str(), game_->brickArea());
         game_->setDrawLevel(true);
         
         /// Create new worker.

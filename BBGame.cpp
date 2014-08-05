@@ -16,6 +16,9 @@
 #include <cmath>
 #include <iostream>
 
+#include <sstream>
+using std::ostringstream;
+
 const unsigned BBGame::DEFAULT_ROWS = 20;
 const unsigned BBGame::DEFAULT_COLS = 12;
 const float BBGame::DEFAULT_BAR_SPEED = 6.0;
@@ -35,7 +38,7 @@ const float BBGame::BAR_START_Y = 580.0;
  *              starting positions.
  */
 BBGame::BBGame() :
-    brickArea_(0), ball_(0), bar_(0), active_(false), drawLevel_(false),
+    brickArea_(0), ball_(0), bar_(0), levelNumber_(1), active_(false), drawLevel_(false),
     soundPlayer_(0), levelLoader_(0)
 {
     /// Set ball starting position and radius.
@@ -140,6 +143,16 @@ Bar & BBGame::bar()
 }
 
 /**
+ *  @details    Gets the BBGame's levelNumber attribute.
+ *
+ *  @return     The number of the level currently being played.
+ */
+unsigned BBGame::levelNumber() const
+{
+    return levelNumber_;
+}
+
+/**
  *  @details    Gets the BBGame's active attribute.
  *
  *  @return     The boolean value of the game active flag.
@@ -177,6 +190,16 @@ const LevelLoader & BBGame::levelLoader() const
 LevelLoader & BBGame::levelLoader()
 {
     return *levelLoader_;
+}
+
+/**
+ *  @details    Sets the BBGame's levelNumber attribute.
+ *
+ *  @param[in]  levelNumber         The new level number.
+ */
+void BBGame::setLevelNumber(unsigned levelNumber)
+{
+    levelNumber_ = levelNumber;
 }
 
 /**
@@ -232,25 +255,36 @@ void BBGame::onBrickBroken(Brick & brick)
  */
 void BBGame::onAreaClear()
 {
+    bool loadOk = false;
+    ostringstream levelName;
+    
     std::cout << "Area clear!" << std::endl;
     /// Update score counter.
     /// Play victory sound.
     /// Check if next level exists.
-    /// Load next level.
-    /// Set ball to default.
-    ball_->setX(BALL_START_X);
-    ball_->setY(BALL_START_Y);
-    ball_->setXSpeed(0);
-    ball_->setYSpeed(0);
-    /// Set bar to default.
-    bar_->setX(BAR_START_X);
-    bar_->setY(BAR_START_Y);
-    bar_->setXSpeed(0);
-    bar_->setYSpeed(0);
-    /// Wait a bit.
-    ThreadWorker::wait(1000);
-    /// Start again.
-    active_ = false;
+    levelNumber_ += 1;
+    levelName << BBController::LEVEL_NAME_PREFIX << levelNumber_;
+    loadOk = levelLoader_->loadLevel(levelName.str().c_str(), *brickArea_);
+    if (loadOk) {
+        /// Set ball to default.
+        ball_->setX(BALL_START_X);
+        ball_->setY(BALL_START_Y);
+        ball_->setXSpeed(0);
+        ball_->setYSpeed(0);
+        /// Set bar to default.
+        bar_->setX(BAR_START_X);
+        bar_->setY(BAR_START_Y);
+        bar_->setXSpeed(0);
+        bar_->setYSpeed(0);
+        /// Wait a bit.
+        ThreadWorker::wait(1000);
+        /// Start again.
+        active_ = false;
+        drawLevel_ = true;
+    } else {
+        std::cout << "No more levels." << std::endl;
+        /// Maybe game clear?
+    }
 }
 
 /**

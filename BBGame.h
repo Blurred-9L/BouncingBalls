@@ -26,6 +26,8 @@ private:
     Ball * ball_;
     /// The Bar object.
     Bar * bar_;
+    /// The current level being played.
+    unsigned levelNumber_;
     /// Flag indicating if the game has started.
     bool active_;
     /// Flag indicating if the level needs to be redrawn.
@@ -77,6 +79,8 @@ public:
     const Bar & bar() const;
     /// Gets the Bar instance.
     Bar & bar();
+    /// Gets the level number.
+    unsigned levelNumber() const;
     /// Checks if the game is active.
     bool isActive() const;
     /// Checks if level should be drawn.
@@ -85,6 +89,8 @@ public:
     const LevelLoader & levelLoader() const;
     /// Gets the LevelLoader instance.
     LevelLoader & levelLoader();
+    /// Sets the level number.
+    void setLevelNumber(unsigned levelNumber);
     /// Sets the game active flag.
     void setActive(bool active);
     /// Sets the draw level flag.

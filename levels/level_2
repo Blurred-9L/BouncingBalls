@@ -1,4 +1,4 @@
-./img/RedTile.png
+../img/RedTile.png
 2,0,0,1,0
 3,0,1,1,0
 3,1,1,1,0

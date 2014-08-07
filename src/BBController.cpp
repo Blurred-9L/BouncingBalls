@@ -24,14 +24,14 @@ const int BBController::MIN_WIDTH = 320;
 const int BBController::MIN_HEIGHT = 480;
 const int BBController::MAX_WIDTH = 480;
 const int BBController::MAX_HEIGHT = 640;
-const char * BBController::BALL_IMG = "./img/Ball.png";
-const char * BBController::BAR_IMG = "./img/Bar.png";
+const char * BBController::BALL_IMG = "../img/Ball.png";
+const char * BBController::BAR_IMG = "../img/Bar.png";
 const char * BBController::BRICK_IMGS[NUM_COLORS] =
-                                    {"./img/RedBrick.png", "./img/GreenBrick.png", "./img/BlueBrick.png",
-                                     "./img/CyanBrick.png", "./img/MagentaBrick.png", "./img/YellowBrick.png",
-                                     "./img/SilverBrick.png", "./img/GoldenBrick.png"};
-const char * BBController::LEVEL_NAME_PREFIX = "./levels/level_";
-const char * BBController::BALL_BOUNCE_FILE = "./sound/Bounce.wav";
+                                    {"../img/RedBrick.png", "../img/GreenBrick.png", "../img/BlueBrick.png",
+                                     "../img/CyanBrick.png", "../img/MagentaBrick.png", "../img/YellowBrick.png",
+                                     "../img/SilverBrick.png", "../img/GoldenBrick.png"};
+const char * BBController::LEVEL_NAME_PREFIX = "../levels/level_";
+const char * BBController::BALL_BOUNCE_FILE = "../sound/Bounce.wav";
 
 /**
  *  @details    The BBController object's constructor. It verifies that

@@ -9,6 +9,7 @@
 #include "GameObject.h"
 #include "Brick.h"
 #include "BBGraphicsView.h"
+#include "BBResource.h"
 
 #include <QGraphicsScene>
 #include <QVBoxLayout>
@@ -71,7 +72,7 @@ BBWidget::BBWidget(BBController & controller, QWidget * parent) :
     bouncingView->setFocus();
     
     for (int i = 0; i < NUM_COLORS; i++) {
-        brickPixmaps.append(new QPixmap(BBController::BRICK_IMGS[i]));
+        brickPixmaps.append(new QPixmap(BBResource::BRICK_IMGS[i]));
     }
 }
 
@@ -102,7 +103,7 @@ void BBWidget::closeEvent(QCloseEvent * event)
 void BBWidget::drawBall(const GameObject & ball)
 {
     if (ballItem == 0) {
-        ballItem = bouncingScene->addPixmap(QPixmap(BBController::BALL_IMG));
+        ballItem = bouncingScene->addPixmap(QPixmap(BBResource::BALL_IMG));
     }
 
     ballItem->setPos(ball.x(), ball.y());
@@ -114,7 +115,7 @@ void BBWidget::drawBall(const GameObject & ball)
 void BBWidget::drawBar(const GameObject & bar)
 {
     if (barItem == 0) {
-        barItem = bouncingScene->addPixmap(QPixmap(BBController::BAR_IMG));
+        barItem = bouncingScene->addPixmap(QPixmap(BBResource::BAR_IMG));
     }
     barItem->setPos(bar.x(), bar.y());
 }
@@ -128,7 +129,7 @@ void BBWidget::drawBrick(const Brick & brick)
     QGraphicsItem * brickItem;
     
     brickItem = bouncingScene->addPixmap(*brickPixmaps[brick.color()]);
-    brickItem->setPos(column * Brick::DEFAULT_WIDTH, row * Brick::DEFAULT_HEIGHT);
+    brickItem->setPos(column * BBResource::DEFAULT_BRICK_WIDTH, row * BBResource::DEFAULT_BRICK_HEIGHT);
     brickItems.append(brickItem);
 }
 

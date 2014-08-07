@@ -9,28 +9,15 @@
 #include "Bar.h"
 #include "Brick.h"
 #include "ThreadWorker.h"
-#include "BBController.h"
 #include "BBSoundPlayer.h"
 #include "LevelLoader.h"
+#include "BBResource.h"
 
 #include <cmath>
 #include <iostream>
 
 #include <sstream>
 using std::ostringstream;
-
-const unsigned BBGame::DEFAULT_ROWS = 20;
-const unsigned BBGame::DEFAULT_COLS = 12;
-const float BBGame::DEFAULT_BAR_SPEED = 6.0;
-const float BBGame::DEFAULT_BALL_SPEED = 6.0;
-const float BBGame::MIN_BALL_SPEED = 1.0;
-const float BBGame::BALL_RADIUS = 6.0;
-const float BBGame::BAR_WIDTH = 100.0;
-const float BBGame::BAR_HEIGHT = 20.0;
-const float BBGame::BALL_START_X = 234.0;
-const float BBGame::BALL_START_Y = 568.0;
-const float BBGame::BAR_START_X = 190.0;
-const float BBGame::BAR_START_Y = 580.0;
 
 /**
  *  @details    The BBGame object's constructor. Instantiates the
@@ -43,17 +30,17 @@ BBGame::BBGame() :
 {
     /// Set ball starting position and radius.
     ball_ = new Ball();
-    ball_->setRadius(BALL_RADIUS);
-    ball_->setX(BALL_START_X);
-    ball_->setY(BALL_START_Y);
+    ball_->setRadius(BBResource::BALL_RADIUS);
+    ball_->setX(BBResource::BALL_START_X);
+    ball_->setY(BBResource::BALL_START_Y);
     /// Set bar starting position, width and height.
     bar_ = new Bar();
-    bar_->setWidth(BAR_WIDTH);
-    bar_->setHeight(BAR_HEIGHT);
-    bar_->setX(BAR_START_X);
-    bar_->setY(BAR_START_Y);
+    bar_->setWidth(BBResource::BAR_WIDTH);
+    bar_->setHeight(BBResource::BAR_HEIGHT);
+    bar_->setX(BBResource::BAR_START_X);
+    bar_->setY(BBResource::BAR_START_Y);
     /// Creates the BrickArea object.
-    brickArea_ = new BrickArea(DEFAULT_ROWS, DEFAULT_COLS);
+    brickArea_ = new BrickArea(BBResource::DEFAULT_ROWS, BBResource::DEFAULT_COLS);
     
     soundPlayer_ = new BBSoundPlayer();
     
@@ -231,7 +218,7 @@ void BBGame::onBrickHit(Brick & brick)
 {
     if (!brick.isBroken() && brick.isBreakable()) {
         brick.setHitPoints(brick.hitPoints() - 1);
-        soundPlayer_->playSound(BBController::BALL_BOUNCE_SOUND);
+        soundPlayer_->playSound(BBResource::BALL_BOUNCE_SOUND);
         if (brick.isBroken()) {
             this->onBrickBroken(brick);
         }
@@ -263,17 +250,17 @@ void BBGame::onAreaClear()
     /// Play victory sound.
     /// Check if next level exists.
     levelNumber_ += 1;
-    levelName << BBController::LEVEL_NAME_PREFIX << levelNumber_;
+    levelName << BBResource::LEVEL_NAME_PREFIX << levelNumber_;
     loadOk = levelLoader_->loadLevel(levelName.str().c_str(), *brickArea_);
     if (loadOk) {
         /// Set ball to default.
-        ball_->setX(BALL_START_X);
-        ball_->setY(BALL_START_Y);
+        ball_->setX(BBResource::BALL_START_X);
+        ball_->setY(BBResource::BALL_START_Y);
         ball_->setXSpeed(0);
         ball_->setYSpeed(0);
         /// Set bar to default.
-        bar_->setX(BAR_START_X);
-        bar_->setY(BAR_START_Y);
+        bar_->setX(BBResource::BAR_START_X);
+        bar_->setY(BBResource::BAR_START_Y);
         bar_->setXSpeed(0);
         bar_->setYSpeed(0);
         /// Wait a bit.
@@ -298,13 +285,13 @@ void BBGame::onLose()
     /// Play death sound.
     /// Check that game is not over.
     /// Set ball to default.
-    ball_->setX(BALL_START_X);
-    ball_->setY(BALL_START_Y);
+    ball_->setX(BBResource::BALL_START_X);
+    ball_->setY(BBResource::BALL_START_Y);
     ball_->setXSpeed(0);
     ball_->setYSpeed(0);
     /// Set bar to default.
-    bar_->setX(BAR_START_X);
-    bar_->setY(BAR_START_Y);
+    bar_->setX(BBResource::BAR_START_X);
+    bar_->setY(BBResource::BAR_START_Y);
     bar_->setXSpeed(0);
     bar_->setYSpeed(0);
     /// Wait a bit.
@@ -332,20 +319,20 @@ void BBGame::onBarBallCollision()
     float barX = bar_->x();
     
     if ((ballX >= barX) && (ballX <= barX + Bar::RANGE_LEFT_ACUTE)) {
-        ball_->setXSpeed(-DEFAULT_BALL_SPEED * 1.5);
+        ball_->setXSpeed(-BBResource::DEFAULT_BALL_SPEED * 1.5);
     } else if ((ballX > barX + Bar::RANGE_LEFT_ACUTE) && (ballX <= barX + Bar::RANGE_LEFT_STRAIGHT)) {
-        ball_->setXSpeed(-DEFAULT_BALL_SPEED);
+        ball_->setXSpeed(-BBResource::DEFAULT_BALL_SPEED);
     } else if ((ballX > barX + Bar::RANGE_LEFT_STRAIGHT) && (ballX <= barX + Bar::RANGE_LEFT_UPWARD)) {
-        ball_->setXSpeed(-DEFAULT_BALL_SPEED * 0.5);
+        ball_->setXSpeed(-BBResource::DEFAULT_BALL_SPEED * 0.5);
     } else if ((ballX > barX + Bar::RANGE_LEFT_UPWARD) && (ballX <= barX + Bar::RANGE_RIGHT_UPWARD)) {
-        ball_->setXSpeed(DEFAULT_BALL_SPEED * 0.5);
+        ball_->setXSpeed(BBResource::DEFAULT_BALL_SPEED * 0.5);
     } else if ((ballX > barX + Bar::RANGE_RIGHT_UPWARD) && (ballX <= barX + Bar::RANGE_RIGHT_STRAIGHT)) {
-        ball_->setXSpeed(DEFAULT_BALL_SPEED);
+        ball_->setXSpeed(BBResource::DEFAULT_BALL_SPEED);
     } else if ((ballX > barX + Bar::RANGE_RIGHT_STRAIGHT) && (ballX <= barX + Bar::RANGE_RIGHT_UPWARD)){
-        ball_->setXSpeed(DEFAULT_BALL_SPEED * 1.5);
+        ball_->setXSpeed(BBResource::DEFAULT_BALL_SPEED * 1.5);
     }
     ball_->setYSpeed(-ball_->ySpeed());
-    soundPlayer_->playSound(BBController::BALL_BOUNCE_SOUND);
+    soundPlayer_->playSound(BBResource::BALL_BOUNCE_SOUND);
 }
 
 /**
@@ -418,12 +405,12 @@ bool BBGame::checkCollision(Ball & ball, Bar & bar)
 int BBGame::checkCollision(Ball & ball, Brick & brick)
 {
     float left, right, up, down;
-    float brickHalfWidth = Brick::DEFAULT_WIDTH * 0.5;
-    float brickHalfHeight = Brick::DEFAULT_HEIGHT * 0.5;
+    float brickHalfWidth = BBResource::DEFAULT_BRICK_WIDTH * 0.5;
+    float brickHalfHeight = BBResource::DEFAULT_BRICK_HEIGHT * 0.5;
     float ballCenterX = ball.x() + ball.radius();
     float ballCenterY = ball.y() + ball.radius();
-    float brickCenterX = brick.column() * Brick::DEFAULT_WIDTH + brickHalfWidth;
-    float brickCenterY = brick.row() * Brick::DEFAULT_HEIGHT + brickHalfHeight;
+    float brickCenterX = brick.column() * BBResource::DEFAULT_BRICK_WIDTH + brickHalfWidth;
+    float brickCenterY = brick.row() * BBResource::DEFAULT_BRICK_HEIGHT + brickHalfHeight;
     float auxValue, lengthX, lengthY, gapX, gapY;
     bool collision = false;
     bool onRight = false;

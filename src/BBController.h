@@ -12,9 +12,6 @@ class BBGame;
 class GameObject;
 class Brick;
 
-/// The number of brick colors.
-const int NUM_COLORS = 8;
-
 /**
  *  @class  BBController
  *
@@ -35,34 +32,6 @@ private:
     BBGame * game_;
 
 public:
-    /// The scene's minimum width
-    static const int MIN_WIDTH;
-    /// The scene's minimum height.
-    static const int MIN_HEIGHT;
-    /// The scene's maximum width.
-    static const int MAX_WIDTH;
-    /// The scene's maximum height.
-    static const int MAX_HEIGHT;
-    /// Path to the ball's image.
-    static const char * BALL_IMG;
-    /// Path to the bar's image.
-    static const char * BAR_IMG;
-    /// Path to the bricks' images.
-    static const char * BRICK_IMGS[NUM_COLORS];
-    /// Prefix for default levels.
-    static const char * LEVEL_NAME_PREFIX;
-    /// Path to bounce sound file.
-    static const char * BALL_BOUNCE_FILE;
-    
-    /**
-     *  @enum   SoundIndex
-     *
-     *  @brief  Index values to use with the SoundPlayer class.
-     */
-    enum SoundIndex {
-        BALL_BOUNCE_SOUND
-    };
-
     /// BBController constructor.
     explicit BBController(unsigned width, unsigned height, QObject * parent = 0);
     /// BBController destructor.

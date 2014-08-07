@@ -30,11 +30,6 @@ private:
     unsigned color_;
 
 public:
-    /// The default brick width.
-    static const float DEFAULT_WIDTH;
-    /// The default brick height.
-    static const float DEFAULT_HEIGHT;
-
     /**
      *  @enum   BrickType
      *

@@ -11,6 +11,7 @@
 #include "LevelLoader.h"
 #include "BBGame.h"
 #include "BBWorker.h"
+#include "BBResource.h"
 
 #include <QThread>
 
@@ -19,19 +20,6 @@
 using std::string;
 #include <sstream>
 using std::ostringstream;
-
-const int BBController::MIN_WIDTH = 320;
-const int BBController::MIN_HEIGHT = 480;
-const int BBController::MAX_WIDTH = 480;
-const int BBController::MAX_HEIGHT = 640;
-const char * BBController::BALL_IMG = "../img/Ball.png";
-const char * BBController::BAR_IMG = "../img/Bar.png";
-const char * BBController::BRICK_IMGS[NUM_COLORS] =
-                                    {"../img/RedBrick.png", "../img/GreenBrick.png", "../img/BlueBrick.png",
-                                     "../img/CyanBrick.png", "../img/MagentaBrick.png", "../img/YellowBrick.png",
-                                     "../img/SilverBrick.png", "../img/GoldenBrick.png"};
-const char * BBController::LEVEL_NAME_PREFIX = "../levels/level_";
-const char * BBController::BALL_BOUNCE_FILE = "../sound/Bounce.wav";
 
 /**
  *  @details    The BBController object's constructor. It verifies that
@@ -45,15 +33,15 @@ BBController::BBController(unsigned width, unsigned height, QObject * parent) :
     ThreadController(1, parent), isActive(false), width_(width), height_(height),
     game_(0)
 {
-    if (width < MIN_WIDTH) {
-        width_ = MIN_WIDTH;
-    } else if (width > MAX_WIDTH) {
-        width_ = MAX_WIDTH;
+    if (width < BBResource::MIN_SCENE_WIDTH) {
+        width_ = BBResource::MIN_SCENE_WIDTH;
+    } else if (width > BBResource::MAX_SCENE_WIDTH) {
+        width_ = BBResource::MAX_SCENE_WIDTH;
     }
-    if (height < MIN_HEIGHT) {
-        height_ = MIN_HEIGHT;
-    } else if (height > MAX_HEIGHT) {
-        height_ = MAX_HEIGHT;
+    if (height < BBResource::MIN_SCENE_HEIGHT) {
+        height_ = BBResource::MIN_SCENE_HEIGHT;
+    } else if (height > BBResource::MAX_SCENE_HEIGHT) {
+        height_ = BBResource::MAX_SCENE_HEIGHT;
     }
 }
 
@@ -113,7 +101,7 @@ void BBController::startThreads()
         emit drawBall(game_->ball());
         emit drawBar(game_->bar());
         
-        levelName << LEVEL_NAME_PREFIX << game_->levelNumber();
+        levelName << BBResource::LEVEL_NAME_PREFIX << game_->levelNumber();
         game_->levelLoader().loadLevel(levelName.str().c_str(), game_->brickArea());
         game_->setDrawLevel(true);
         
@@ -183,9 +171,9 @@ void BBController::updateScene()
  */
 void BBController::handleLeftMovement()
 {
-    game_->bar().setXSpeed(-BBGame::DEFAULT_BAR_SPEED);
+    game_->bar().setXSpeed(-BBResource::DEFAULT_BAR_SPEED);
     if (!game_->isActive()) {
-        game_->ball().setXSpeed(-BBGame::DEFAULT_BAR_SPEED);
+        game_->ball().setXSpeed(-BBResource::DEFAULT_BAR_SPEED);
     }
     
 }
@@ -195,9 +183,9 @@ void BBController::handleLeftMovement()
  */
 void BBController::handleRightMovement()
 {
-    game_->bar().setXSpeed(BBGame::DEFAULT_BAR_SPEED);
+    game_->bar().setXSpeed(BBResource::DEFAULT_BAR_SPEED);
     if (!game_->isActive()) {
-        game_->ball().setXSpeed(BBGame::DEFAULT_BAR_SPEED);
+        game_->ball().setXSpeed(BBResource::DEFAULT_BAR_SPEED);
     }
 }
 
@@ -207,8 +195,8 @@ void BBController::handleRightMovement()
 void BBController::handleAccept()
 {
     if (!game_->isActive()) {
-        game_->ball().setXSpeed(BBGame::DEFAULT_BALL_SPEED);
-        game_->ball().setYSpeed(-BBGame::DEFAULT_BALL_SPEED);
+        game_->ball().setXSpeed(BBResource::DEFAULT_BALL_SPEED);
+        game_->ball().setYSpeed(-BBResource::DEFAULT_BALL_SPEED);
         game_->setActive(true);
     }
 }

@@ -4,7 +4,7 @@
  */
 
 #include "BBSoundPlayer.h"
-#include "BBController.h"
+#include "BBResource.h"
 
 #include <cstring>
 #include <iostream>
@@ -55,7 +55,7 @@ BBSoundPlayer::~BBSoundPlayer()
  */
 void BBSoundPlayer::playSound(int soundIndex)
 {
-    const char * validFilenames[] = {BBController::BALL_BOUNCE_FILE};
+    const char * validFilenames[] = {BBResource::BALL_BOUNCE_FILE};
     
     if (soundIndex < nValidFilenames) {
         sounds[soundIndex]->setCurrentSource(Phonon::MediaSource(validFilenames[soundIndex]));

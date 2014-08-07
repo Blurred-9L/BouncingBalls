@@ -6,9 +6,6 @@
 #include "Brick.h"
 #include "BrickArea.h"
 
-const float Brick::DEFAULT_WIDTH = 40.0;
-const float Brick::DEFAULT_HEIGHT = 20.0;
-
 /**
  *  @details    The Brick object's constructor.
  */

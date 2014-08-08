@@ -5,7 +5,7 @@
 
 #include "BBGraphicsView.h"
 
-#include <QMouseEvent>
+#include <QKeyEvent>
 #include <QGraphicsScene>
 
 /**

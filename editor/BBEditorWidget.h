@@ -7,11 +7,14 @@
 #define BB_EDITOR_WIDGET_H
 
 #include <QWidget>
+#include <QVector>
 
 class QGraphicsScene;
 class QGraphicsView;
 class QGraphicsItem;
 class QPixmap;
+
+class EditorController;
 
 /**
  *  @class  BBEditorWidget
@@ -27,12 +30,26 @@ private:
     QGraphicsView * editorView;
     /// The related graphics scene.
     QGraphicsScene * editorScene;
+    /// The cursor's graphics item.
+    QGraphicsItem * cursorItem;
+    /// The bricks' graphics items.
+    QVector<QGraphicsItem *> brickItems;
+    /// The bricks pixmaps.
+    QVector<QPixmap *> brickPixmaps;
+    /// This widget's controller.
+    EditorController * controller;
 
 public:
     /// The BBEditorWidget's constructor.
     BBEditorWidget(QWidget * parent = 0);
     /// The BBEditorWidget's destructor.
     virtual ~BBEditorWidget();
+    
+public slots:
+    /// Moves the cursor to the given row and column.
+    void moveCursor(unsigned row, unsigned column);
+    /// Draws or replaces a brick object.
+    void putBrick(unsigned row, unsigned column, unsigned color);
 };
 
 #endif /// NOT BB_EDITOR_WIDGET_H

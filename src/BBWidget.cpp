@@ -37,7 +37,7 @@ BBWidget::BBWidget(BBController & controller, QWidget * parent) :
     mainLayout->setSizeConstraint(QLayout::SetFixedSize);
     
     bouncingScene = new QGraphicsScene(0, 0, width, height);
-    bouncingView = new BBGraphicsView(bouncingScene);
+    bouncingView = new BBGraphicsView(bouncingScene, this);
     //bouncingView->setGeometry(0, 0, width, height);
     bouncingView->setMinimumSize(width, height);
     bouncingView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);

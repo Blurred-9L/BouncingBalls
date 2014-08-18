@@ -72,6 +72,8 @@ public:
     static const char * LEVEL_NAME_PREFIX;
     /// Path to bounce sound file.
     static const char * BALL_BOUNCE_FILE;
+    /// Color names.
+    static const char * COLOR_NAMES[NUM_COLORS];
 };
 
 #endif /// NOT BB_RESOURCE_H

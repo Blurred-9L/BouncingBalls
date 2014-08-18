@@ -6,13 +6,18 @@
 #include "LevelLoader.h"
 #include "BrickArea.h"
 #include "Brick.h"
+#include "BBResource.h"
 
 #include <fstream>
 using std::ifstream;
 #include <string>
 using std::string;
 #include <cstdio>
-using std::scanf;
+using std::sscanf;
+#include <cstring>
+using std::strcmp;
+
+#define MAX_COLOR_NAME 20
 
 /// Parses a line into a Brick object.
 static bool parseToBrick(const string & line, Brick & brick,
@@ -111,34 +116,40 @@ bool LevelLoader::loadLevel(const char * levelName, BrickArea & brickArea)
 bool parseToBrick(const string & line, Brick & brick,
                   unsigned rows, unsigned cols)
 {
-    unsigned row, column, color, breakable, type;
+    unsigned row, column;
+    char colorName[MAX_COLOR_NAME];
     bool parseOk = true;
+    bool colorFound = false;
     
-    sscanf(line.c_str(), "%u,%u,%u,%u,%u", &row, &column, &color, &breakable, &type);
-    if ((row >= rows) || (column >= cols) ||
-        (color >= Brick::BRICK_COLOR_N_COLORS) ||
-        (type >= Brick::BRICK_TYPE_N_TYPES)) {
+    sscanf(line.c_str(), "%u,%u,%s", &row, &column, colorName);
+    if ((row >= rows) || (column >= cols)) {
         parseOk = false;
     }
-    
     if (parseOk) {
         brick.setRow(row);
         brick.setColumn(column);
-        brick.setBreakable(breakable != 0);
-        switch (type) {
-        case Brick::BRICK_TYPE_NORMAL:
-            brick.setHitPoints(1);
-            break;
-        case Brick::BRICK_TYPE_METAL:
-            brick.setHitPoints(2);
-            color = Brick::BRICK_COLOR_SILVER;
-            break;
-        case Brick::BRICK_TYPE_IMMORTAL:
-            brick.setHitPoints(0xFFFFFFFF);
-            color = Brick::BRICK_COLOR_GOLDEN;
-            break;
+        for (unsigned i = 0; i < NUM_COLORS && !colorFound; i++) {
+            if (strcmp(colorName, BBResource::COLOR_NAMES[i]) == 0) {
+                colorFound = true;
+                brick.setColor(i);
+            }
         }
-        brick.setColor(color);
+        if (colorFound) {
+            switch (brick.color()) {
+            case Brick::BRICK_COLOR_SILVER:
+                brick.setHitPoints(2);
+                brick.setBreakable(true);
+                break;
+            case Brick::BRICK_COLOR_GOLDEN:
+                brick.setHitPoints(0xFFFFFFFF);
+                brick.setBreakable(false);
+            default:
+                brick.setHitPoints(1);
+                brick.setBreakable(true);
+            }
+        } else {
+            parseOk = false;
+        }
     }
     
     return parseOk;

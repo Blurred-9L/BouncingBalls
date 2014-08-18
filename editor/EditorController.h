@@ -8,6 +8,9 @@
 
 #include <QObject>
 
+#include <string>
+using std::string;
+
 class Brick;
 
 /**
@@ -27,6 +30,13 @@ private:
     unsigned cursorColumn_;
     /// The bricks' information.
     Brick ** bricks_;
+    /// The filename of the level file.
+    string levelFileName_;
+    /// The path to the background tile file.
+    string backgroundFileName_;
+    
+    /// Writes the brick data to a level file.
+    void writeFile(const char * filename);
 
 public:
     /// The EditorController's constructor.
@@ -45,12 +55,18 @@ public slots:
     void handleDigitKey(int digit);
     /// Handles clicks.
     void handleClick(int x, int y);
+    /// Handles save option.
+    void saveLevel(const char * levelName);
+    /// Sets the background tile.
+    void setBackgroundTile(const char * backgroundName);
     
 signals:
     /// Moves the cursor to the given row and column.
     void moveCursor(unsigned row, unsigned column);
     /// Draws or replaces a brick object.
     void putBrick(unsigned row, unsigned column, unsigned color);
+    /// Draws the background tile.
+    void drawBackground(const char * filename);
 };
 
 #endif /// NOT EDITOR_CONTROLLER_H

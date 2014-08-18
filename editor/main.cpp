@@ -1,10 +1,11 @@
 #include <QApplication>
+#include "BBEditorWindow.h"
 #include "BBEditorWidget.h"
 
 int main(int argc, char * argv[])
 {
     QApplication app(argc, argv);
-    BBEditorWidget window;
+    BBEditorWindow window;
     
     window.setAttribute(Qt::WA_QuitOnClose);
     window.show();

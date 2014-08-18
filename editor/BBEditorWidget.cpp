@@ -61,11 +61,18 @@ BBEditorWidget::BBEditorWidget(QWidget * parent) :
             controller, SLOT(handleDigitKey(int)));
     connect(editorView, SIGNAL(clickedOn(int, int)),
             controller, SLOT(handleClick(int, int)));
+            
+    connect(this, SIGNAL(saveLevelTo(const char *)),
+            controller, SLOT(saveLevel(const char *)));
+    connect(this, SIGNAL(setBackgroundTile(const char *)),
+            controller, SLOT(setBackgroundTile(const char *)));
     
     connect(controller, SIGNAL(moveCursor(unsigned, unsigned)),
             this, SLOT(moveCursor(unsigned, unsigned)));
     connect(controller, SIGNAL(putBrick(unsigned, unsigned, unsigned)),
             this, SLOT(putBrick(unsigned, unsigned, unsigned)));
+    connect(controller, SIGNAL(drawBackground(const char *)),
+            this, SLOT(drawBackground(const char *)));
     
     cursorItem = editorScene->addPixmap(QPixmap("../img/Cursor.png"));
     
@@ -106,7 +113,7 @@ void BBEditorWidget::moveCursor(unsigned row, unsigned column)
  */
 void BBEditorWidget::putBrick(unsigned row, unsigned column, unsigned color)
 {
-    unsigned index = row * BBResource::DEFAULT_ROWS + column;
+    unsigned index = row * BBResource::DEFAULT_COLS + column;
     unsigned x = column * BBResource::DEFAULT_BRICK_WIDTH;
     unsigned y = row * BBResource::DEFAULT_BRICK_HEIGHT;
     
@@ -118,4 +125,15 @@ void BBEditorWidget::putBrick(unsigned row, unsigned column, unsigned color)
     brickItems[index] = editorScene->addPixmap(*brickPixmaps[color]);
     brickItems[index]->setPos(x, y);
     brickItems[index]->stackBefore(cursorItem);
+}
+
+/**
+ *  @details    Draws the background tile given by pasting the image provided
+ *              onto the draw area.
+ *
+ *  @param[in]  filename            The path to the image to use.
+ */
+void BBEditorWidget::drawBackground(const char * filename)
+{
+    editorScene->setBackgroundBrush(QBrush(QPixmap(filename)));
 }

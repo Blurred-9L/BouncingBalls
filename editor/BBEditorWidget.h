@@ -50,6 +50,14 @@ public slots:
     void moveCursor(unsigned row, unsigned column);
     /// Draws or replaces a brick object.
     void putBrick(unsigned row, unsigned column, unsigned color);
+    /// Draws the background.
+    void drawBackground(const char * filename);
+    
+signals:
+    /// Notifies that the level should be saved.
+    void saveLevelTo(const char *);
+    /// Notifies that the background tile has been chosen.
+    void setBackgroundTile(const char *);
 };
 
 #endif /// NOT BB_EDITOR_WIDGET_H

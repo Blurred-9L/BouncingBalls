@@ -54,14 +54,22 @@ public:
     static const float BAR_START_X;
     /// The bar's initial y coordinate.
     static const float BAR_START_Y;
-    /// The scene's minimum width
+    /// The game area's minimum width
     static const unsigned MIN_SCENE_WIDTH;
-    /// The scene's minimum height.
+    /// The game area's minimum height.
     static const unsigned MIN_SCENE_HEIGHT;
-    /// The scene's maximum width.
+    /// The game area's maximum width.
     static const unsigned MAX_SCENE_WIDTH;
-    /// The scene's maximum height.
+    /// The game area's maximum height.
     static const unsigned MAX_SCENE_HEIGHT;
+    /// The whole scene's width.
+    static const unsigned SCENE_WIDTH;
+    /// The whole scene's height.
+    static const unsigned SCENE_HEIGHT;
+    /// The game's area x coordinate.
+    static const float GAME_AREA_RECT_X;
+    /// The game's area y coordinate.
+    static const float GAME_AREA_RECT_Y;
     /// Path to the ball's image.
     static const char * BALL_IMG;
     /// Path to the bar's image.

@@ -10,13 +10,17 @@
 #include "Brick.h"
 #include "BBGraphicsView.h"
 #include "BBResource.h"
+#include "GameArea.h"
 
 #include <QGraphicsScene>
 #include <QVBoxLayout>
 
 #include <QPixmap>
 #include <QBrush>
+#include <QPen>
+#include <QColor>
 #include <QGraphicsItem>
+#include <QGraphicsRectItem>
 #include <QCloseEvent>
 
 #include <ctime>
@@ -31,12 +35,16 @@
 BBWidget::BBWidget(BBController & controller, QWidget * parent) :
     QWidget(parent), ballItem(0), barItem(0), controller(controller)
 {
+    QPen pen(QColor(0, 0, 0));
+    QBrush brush(QColor(0, 0, 0));
     unsigned width = controller.width();
     unsigned height = controller.height();
+    unsigned windowWidth = BBResource::SCENE_WIDTH;
+    unsigned windowHeight = BBResource::SCENE_HEIGHT;
     QVBoxLayout * mainLayout = new QVBoxLayout(this);
     mainLayout->setSizeConstraint(QLayout::SetFixedSize);
     
-    bouncingScene = new QGraphicsScene(0, 0, width, height);
+    bouncingScene = new QGraphicsScene(0, 0, windowWidth, windowHeight);
     bouncingView = new BBGraphicsView(bouncingScene, this);
     //bouncingView->setGeometry(0, 0, width, height);
     bouncingView->setMinimumSize(width, height);
@@ -71,6 +79,12 @@ BBWidget::BBWidget(BBController & controller, QWidget * parent) :
             
     bouncingView->setFocus();
     
+    bouncingScene->addRect(0, 0, windowWidth, windowHeight, pen, brush);
+    gameArea = new GameArea();
+    gameArea->setPos(BBResource::GAME_AREA_RECT_X, BBResource::GAME_AREA_RECT_Y);
+    bouncingScene->addItem(gameArea);
+    
+    
     for (int i = 0; i < NUM_COLORS; i++) {
         brickPixmaps.append(new QPixmap(BBResource::BRICK_IMGS[i]));
     }
@@ -104,6 +118,7 @@ void BBWidget::drawBall(const GameObject & ball)
 {
     if (ballItem == 0) {
         ballItem = bouncingScene->addPixmap(QPixmap(BBResource::BALL_IMG));
+        ballItem->setParentItem(gameArea);
     }
 
     ballItem->setPos(ball.x(), ball.y());
@@ -116,6 +131,7 @@ void BBWidget::drawBar(const GameObject & bar)
 {
     if (barItem == 0) {
         barItem = bouncingScene->addPixmap(QPixmap(BBResource::BAR_IMG));
+        barItem->setParentItem(gameArea);
     }
     barItem->setPos(bar.x(), bar.y());
 }
@@ -129,6 +145,7 @@ void BBWidget::drawBrick(const Brick & brick)
     QGraphicsItem * brickItem;
     
     brickItem = bouncingScene->addPixmap(*brickPixmaps[brick.color()]);
+    brickItem->setParentItem(gameArea);
     brickItem->setPos(column * BBResource::DEFAULT_BRICK_WIDTH, row * BBResource::DEFAULT_BRICK_HEIGHT);
     brickItems.append(brickItem);
 }
@@ -172,5 +189,6 @@ void BBWidget::resetBricks()
  */
 void BBWidget::drawBackground(const char * tileFile)
 {
-    bouncingView->setBackgroundBrush(QBrush(QPixmap(tileFile)));
+    gameArea->setTileFile(tileFile);
+    gameArea->update();
 }

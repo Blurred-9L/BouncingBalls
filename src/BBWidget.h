@@ -19,6 +19,7 @@ class QCloseEvent;
 class BBController;
 class GameObject;
 class Brick;
+class GameArea;
 
 /**
  *  @class  BBWidget
@@ -38,6 +39,8 @@ private:
     QGraphicsItem * ballItem;
     /// The bar image object.
     QGraphicsItem * barItem;
+    /// The game area object.
+    GameArea * gameArea;
     /// The bricks image objects.
     QList<QGraphicsItem *> brickItems;
     /// The bricks pixmaps.

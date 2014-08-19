@@ -28,6 +28,14 @@ private:
     Bar * bar_;
     /// The current level being played.
     unsigned levelNumber_;
+    /// The current number of lives.
+    unsigned nLives_;
+    /// The current player scores.
+    unsigned score_;
+    /// Flag indicating that the number of lives has changed.
+    bool livesChanged_;
+    /// Flag indicating that the score has changed.
+    bool scoreChanged_;
     /// Flag indicating if the game has started.
     bool active_;
     /// Flag indicating if the level needs to be redrawn.
@@ -56,6 +64,14 @@ public:
     Bar & bar();
     /// Gets the level number.
     unsigned levelNumber() const;
+    /// Gets the number of lives.
+    unsigned nLives() const;
+    /// Gets the player's score.
+    unsigned score() const;
+    /// Checks if lives have changed.
+    bool livesChanged() const;
+    /// Checks if score has changed.
+    bool scoreChanged() const; 
     /// Checks if the game is active.
     bool isActive() const;
     /// Checks if level should be drawn.
@@ -66,6 +82,16 @@ public:
     LevelLoader & levelLoader();
     /// Sets the level number.
     void setLevelNumber(unsigned levelNumber);
+    /// Sets the number of lives remaining.
+    void setNLives(unsigned nLives);
+    /// Sets the player's score.
+    void setScore(unsigned score);
+    /// Adds to the player's score.
+    void addScore(unsigned amount);
+    /// Sets the lives changed flag.
+    void setLivesChanged(bool livesChanged);
+    /// Sets the score changed flag.
+    void setScoreChanged(bool scoreChanged);
     /// Sets the game active flag.
     void setActive(bool active);
     /// Sets the draw level flag.

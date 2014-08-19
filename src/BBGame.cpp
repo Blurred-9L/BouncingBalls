@@ -25,7 +25,8 @@ using std::ostringstream;
  *              starting positions.
  */
 BBGame::BBGame() :
-    brickArea_(0), ball_(0), bar_(0), levelNumber_(1), active_(false), drawLevel_(false),
+    brickArea_(0), ball_(0), bar_(0), levelNumber_(1), nLives_(BBResource::DEFAULT_LIVES), score_(0),
+    livesChanged_(false), scoreChanged_(false), active_(false), drawLevel_(false),
     soundPlayer_(0), levelLoader_(0)
 {
     /// Set ball starting position and radius.
@@ -140,6 +141,46 @@ unsigned BBGame::levelNumber() const
 }
 
 /**
+ *  @details    Gets the BBGame's nLives attribute.
+ *
+ *  @return     The number of lives remaining.
+ */
+unsigned BBGame::nLives() const
+{
+    return nLives_;
+}
+
+/**
+ *  @details    Gets the BBGame's score attribute.
+ *
+ *  @return     The amount on the player's score.
+ */
+unsigned BBGame::score() const
+{
+    return score_;
+}
+
+/**
+ *  @details    Gets the BBGame's livesChanged attribute.
+ *
+ *  @return     The boolean value indicating if the amount of lives changed.
+ */
+bool BBGame::livesChanged() const
+{
+    return livesChanged_;
+}
+
+/**
+ *  @details    Gets the BBGame's scoreChanged attribute.
+ *
+ *  @return     The boolean value indicating if the score changed.
+ */
+bool BBGame::scoreChanged() const
+{
+    return scoreChanged_;
+} 
+
+/**
  *  @details    Gets the BBGame's active attribute.
  *
  *  @return     The boolean value of the game active flag.
@@ -187,6 +228,56 @@ LevelLoader & BBGame::levelLoader()
 void BBGame::setLevelNumber(unsigned levelNumber)
 {
     levelNumber_ = levelNumber;
+}
+
+/**
+ *  @details    Sets the BBGame's nLives attribute.
+ *
+ *  @param[in]  nLives              The new number of lives.
+ */
+void BBGame::setNLives(unsigned nLives)
+{
+    nLives_ = nLives;
+}
+
+/**
+ *  @details    Sets the BBGame's score attribute.
+ *
+ *  @param[in]  score               The new score value.
+ */
+void BBGame::setScore(unsigned score)
+{
+    score_ = score;
+}
+
+/**
+ *  @details    Adds an amount to the player's score.
+ *
+ *  @param[in]  amount              The amount to increase.
+ */
+void BBGame::addScore(unsigned amount)
+{
+    score_ += amount;
+}
+
+/**
+ *  @details    Sets the BBGame's livesChanged attribute.
+ *
+ *  @param[in]  livesChanged        The new value of the lives changed flag.
+ */
+void BBGame::setLivesChanged(bool livesChanged)
+{
+    livesChanged_ = livesChanged;
+}
+
+/**
+ *  @details    Sets the BBGame's scoreChanged attribute.
+ *
+ *  @param[in]  scoreChanged        The new value of the score changed flag.
+ */
+void BBGame::setScoreChanged(bool scoreChanged)
+{
+    scoreChanged_ = scoreChanged;
 }
 
 /**

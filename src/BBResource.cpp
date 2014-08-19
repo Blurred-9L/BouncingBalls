@@ -37,3 +37,5 @@ const char * BBResource::LEVEL_NAME_PREFIX = "../levels/level_";
 const char * BBResource::BALL_BOUNCE_FILE = "../sound/Bounce.wav";
 const char * BBResource::COLOR_NAMES[NUM_COLORS] = 
                                     {"RED", "GREEN", "BLUE", "CYAN", "MAGENTA", "YELLOW", "SILVER", "GOLDEN"};
+const unsigned BBResource::DEFAULT_LIVES = 4;
+                                    

@@ -82,6 +82,8 @@ public:
     static const char * BALL_BOUNCE_FILE;
     /// Color names.
     static const char * COLOR_NAMES[NUM_COLORS];
+    /// The default number of lives.
+    static const unsigned DEFAULT_LIVES;
 };
 
 #endif /// NOT BB_RESOURCE_H

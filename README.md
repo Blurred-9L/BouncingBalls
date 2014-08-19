@@ -32,10 +32,10 @@ even stop updating before it is finished.
 - Add sounds whenever the ball bounces on certain objects (bricks and bar). (Kind of lame...)
 - Add backgrounds. Possibly modify level file to indicate where to find the background tile to use.
 - Add a level loader.
+- Add lives to the game. (No proper game over screen yet, though).
 
 <strong>To do:</strong>
 - Add several default levels.
-- Add lives to the game.
 - Add music, even if crappy prop music is used.
 
 <strong>Extra stuff that might not get done:</strong>

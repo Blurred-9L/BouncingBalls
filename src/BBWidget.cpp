@@ -104,6 +104,8 @@ BBWidget::~BBWidget()
 /**
  *  @details    Handles a window close event in order to stop the threads
  *              used and free the required memory.
+ *
+ *  @param[in]  event               The event's related info.
  */
 void BBWidget::closeEvent(QCloseEvent * event)
 {
@@ -114,6 +116,8 @@ void BBWidget::closeEvent(QCloseEvent * event)
 
 /**
  *  @details    Draws or updates the ball object on the screen.
+ *
+ *  @param[in]  ball                The ball game object.
  */
 void BBWidget::drawBall(const GameObject & ball)
 {
@@ -127,6 +131,8 @@ void BBWidget::drawBall(const GameObject & ball)
 
 /**
  *  @details    Draws or updates the bar object on the screen.
+ *
+ *  @param[in]  bar                 The bar game object.
  */
 void BBWidget::drawBar(const GameObject & bar)
 {
@@ -139,6 +145,8 @@ void BBWidget::drawBar(const GameObject & bar)
 
 /**
  *  @details    Draws a brick on the scene.
+ *
+ *  @param[in]  brick               The brick to be drawn.
  */
 void BBWidget::drawBrick(const Brick & brick)
 {
@@ -151,6 +159,13 @@ void BBWidget::drawBrick(const Brick & brick)
     brickItems.append(brickItem);
 }
 
+/**
+ *  @details    Draws the life icons on the scene, either by drawing the
+ *              amount of pixmaps according to the number of lives remaining
+ *              or by removing them from the scene.
+ *
+ *  @param[in]  nLives              The remaining lives of the player.
+ */
 void BBWidget::drawLifeIcons(unsigned nLives)
 {
     QGraphicsItem * lifeIcon = 0;
@@ -183,7 +198,9 @@ void BBWidget::drawLifeIcons(unsigned nLives)
 }
 
 /**
- *  @details    Removes a broken brick from the scene. 
+ *  @details    Removes a broken brick from the scene.
+ *
+ *  @param[in]  index               The index of the brick to remove. 
  */
 void BBWidget::removeBrick(unsigned index)
 {

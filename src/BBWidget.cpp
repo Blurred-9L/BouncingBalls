@@ -58,6 +58,8 @@ BBWidget::BBWidget(BBController & controller, QWidget * parent) :
             this, SLOT(drawBall(const GameObject &)));
     connect(&controller, SIGNAL(drawBar(const GameObject &)),
             this, SLOT(drawBar(const GameObject &)));
+    connect(&controller, SIGNAL(drawLifeIcons(unsigned)),
+            this, SLOT(drawLifeIcons(unsigned)));
     connect(&controller, SIGNAL(drawBrick(const Brick &)),
             this, SLOT(drawBrick(const Brick &)));
     connect(&controller, SIGNAL(removeBrick(unsigned)),
@@ -83,7 +85,6 @@ BBWidget::BBWidget(BBController & controller, QWidget * parent) :
     gameArea = new GameArea();
     gameArea->setPos(BBResource::GAME_AREA_RECT_X, BBResource::GAME_AREA_RECT_Y);
     bouncingScene->addItem(gameArea);
-    
     
     for (int i = 0; i < NUM_COLORS; i++) {
         brickPixmaps.append(new QPixmap(BBResource::BRICK_IMGS[i]));
@@ -148,6 +149,37 @@ void BBWidget::drawBrick(const Brick & brick)
     brickItem->setParentItem(gameArea);
     brickItem->setPos(column * BBResource::DEFAULT_BRICK_WIDTH, row * BBResource::DEFAULT_BRICK_HEIGHT);
     brickItems.append(brickItem);
+}
+
+void BBWidget::drawLifeIcons(unsigned nLives)
+{
+    QGraphicsItem * lifeIcon = 0;
+    int i;
+    
+    if (nLives < (unsigned)lifeItems.size()) {
+        for (i = lifeItems.size() - 1; i >= (int)nLives; i--) {
+            if (lifeItems[i] != 0) {
+                bouncingScene->removeItem(lifeItems[i]);
+                delete lifeItems[i];
+                lifeItems[i] = 0;
+            }
+        }
+        lifeItems.erase(lifeItems.begin() + nLives, lifeItems.end());
+    } else {
+        for (i = lifeItems.size() - 1; i >= 0; i--) {
+            if (lifeItems[i] != 0) {
+                bouncingScene->removeItem(lifeItems[i]);
+                delete lifeItems[i];
+                lifeItems[i] = 0;
+            }
+        }
+        for (i = 0; i < (int)nLives; i++) {
+            lifeIcon = bouncingScene->addPixmap(QPixmap(BBResource::LIFE_ICON_IMG));
+            lifeIcon->setPos(BBResource::BASE_LIFE_X + BBResource::LIFE_ICON_X_OFFSET * i,
+                             BBResource::LIFE_ICON_Y);
+            lifeItems.append(lifeIcon);
+        }
+    }
 }
 
 /**

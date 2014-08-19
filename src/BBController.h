@@ -68,6 +68,8 @@ signals:
     void drawBar(const GameObject & bar);
     /// Draws the brick on the scene.
     void drawBrick(const Brick & brick);
+    /// Draws all the life icons on the scene.
+    void drawLifeIcons(unsigned nLives);
     /// Removes the brick on the given index.
     void removeBrick(unsigned index);
     /// Resets the number of bricks objects on the scene.

@@ -104,6 +104,7 @@ void BBController::startThreads()
         levelName << BBResource::LEVEL_NAME_PREFIX << game_->levelNumber();
         game_->levelLoader().loadLevel(levelName.str().c_str(), game_->brickArea());
         game_->setDrawLevel(true);
+        game_->setLivesChanged(true);
         
         /// Create new worker.
         worker = new BBWorker(0, *game_, isActive, width_, height_);
@@ -160,6 +161,10 @@ void BBController::updateScene()
                 emit removeBrick(i);
             }
         }
+    }
+    if (game_->livesChanged()) {
+        emit drawLifeIcons(game_->nLives());
+        game_->setLivesChanged(false);
     }
     /// Draws the ball and the bar's new position.
     emit drawBall(game_->ball());

@@ -29,6 +29,7 @@ const float BBResource::GAME_AREA_RECT_X = 10.0;
 const float BBResource::GAME_AREA_RECT_Y = 0.0;
 const char * BBResource::BALL_IMG = "../img/Ball.png";
 const char * BBResource::BAR_IMG = "../img/Bar.png";
+const char * BBResource::LIFE_ICON_IMG = "../img/LifeIcon.png";
 const char * BBResource::BRICK_IMGS[NUM_COLORS] =
                                     {"../img/RedBrick.png", "../img/GreenBrick.png", "../img/BlueBrick.png",
                                      "../img/CyanBrick.png", "../img/MagentaBrick.png", "../img/YellowBrick.png",
@@ -38,4 +39,7 @@ const char * BBResource::BALL_BOUNCE_FILE = "../sound/Bounce.wav";
 const char * BBResource::COLOR_NAMES[NUM_COLORS] = 
                                     {"RED", "GREEN", "BLUE", "CYAN", "MAGENTA", "YELLOW", "SILVER", "GOLDEN"};
 const unsigned BBResource::DEFAULT_LIVES = 4;
+const float BBResource::BASE_LIFE_X = 510.0;
+const float BBResource::LIFE_ICON_Y = 60.0;
+const float BBResource::LIFE_ICON_X_OFFSET = 30.0;
                                     

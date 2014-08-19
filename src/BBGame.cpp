@@ -373,8 +373,9 @@ void BBGame::onLose()
 {
     std::cout << "Lost a life!" << std::endl;
     /// Update life counter.
+    nLives_ -= 1;
+    livesChanged_ = true;
     /// Play death sound.
-    /// Check that game is not over.
     /// Set ball to default.
     ball_->setX(BBResource::BALL_START_X);
     ball_->setY(BBResource::BALL_START_Y);
@@ -389,6 +390,11 @@ void BBGame::onLose()
     ThreadWorker::wait(1000);
     /// Start again.
     active_ = false;
+    /// Check that game is not over.
+    if (nLives_ == 0) {
+        nLives_ = BBResource::DEFAULT_LIVES;
+        std::cout << "Game lost!" << std::endl;
+    }
 }
 
 /**

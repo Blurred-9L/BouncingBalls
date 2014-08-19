@@ -74,6 +74,8 @@ public:
     static const char * BALL_IMG;
     /// Path to the bar's image.
     static const char * BAR_IMG;
+    /// Path to the life icon's image.
+    static const char * LIFE_ICON_IMG;
     /// Path to the bricks' images.
     static const char * BRICK_IMGS[NUM_COLORS];
     /// Prefix for default levels.
@@ -84,6 +86,12 @@ public:
     static const char * COLOR_NAMES[NUM_COLORS];
     /// The default number of lives.
     static const unsigned DEFAULT_LIVES;
+    /// The base x coordinate for life icons.
+    static const float BASE_LIFE_X;
+    /// The y coordinate for life icons.
+    static const float LIFE_ICON_Y;
+    /// The x offset between life icons.
+    static const float LIFE_ICON_X_OFFSET;
 };
 
 #endif /// NOT BB_RESOURCE_H

@@ -43,6 +43,8 @@ private:
     GameArea * gameArea;
     /// The bricks image objects.
     QList<QGraphicsItem *> brickItems;
+    /// The lives image objects.
+    QList<QGraphicsItem *> lifeItems;
     /// The bricks pixmaps.
     QList<QPixmap *> brickPixmaps;
     /// The widget's controller.
@@ -64,6 +66,8 @@ public slots:
     void drawBar(const GameObject & bar);
     /// Draws or stops drawing a brick on the screen.
     void drawBrick(const Brick & brick);
+    /// Draws all the life icons on the screen.
+    void drawLifeIcons(unsigned nLives);
     /// Removes the brick on the given index.
     void removeBrick(unsigned index);
     /// Resets the number of bricks on the screen.
